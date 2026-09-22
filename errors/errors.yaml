@@ -1,0 +1,22 @@
+# Machine-readable error codes. Response body: {"error": {"code", "message", "request_id"}}
+codes:
+  conflict: The request conflicts with the current state (for example a stale version).
+  content_invalid: The content failed validation.
+  delivery_failed: The verification code could not be delivered.
+  elevation_required: Enter the parent PIN to continue.
+  email_taken: An account with this email already exists.
+  forbidden: The caller is not allowed to do this.
+  guardian_verification_required: A verified guardian is required before child data
+    can be created.
+  internal_error: Unexpected server error.
+  invalid_credentials: Email or password is incorrect.
+  method_not_allowed: This method is not supported on this path.
+  not_found: The resource does not exist or is not visible to the caller.
+  not_implemented: This endpoint is planned but not built yet.
+  otp_invalid: The verification code is incorrect or expired.
+  pin_invalid: The PIN is incorrect.
+  pin_locked: The PIN is temporarily locked after too many attempts.
+  pin_not_set: No parent PIN has been set.
+  rate_limited: Too many attempts. Try again later.
+  unauthenticated: Missing, invalid or expired token.
+  validation_error: The request body or parameters are invalid.

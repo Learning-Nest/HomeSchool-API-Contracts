@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install jsonschema pyyaml
+      - name: openapi.json and the schema files are valid JSON / the schema is a valid JSON Schema
+        run: |
+          python -c "
+          import json
+          from jsonschema.validators import validator_for
+          json.load(open('openapi/openapi.json'))
+          s = json.load(open('schemas/activity-content.schema.json'))
+          validator_for(s).check_schema(s)
+          for f in ['test-vectors/mastery/mastery-vectors.json', 'test-vectors/mastery/streak-vectors.json']:
+              json.load(open(f))
+          "
+      - name: errors.yaml is valid YAML
+        run: python -c "import yaml; yaml.safe_load(open('errors/errors.yaml'))"
