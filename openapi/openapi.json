@@ -626,6 +626,28 @@
     "title": "BundleReport",
     "type": "object"
    },
+   "ChangePasswordIn": {
+    "properties": {
+     "current_password": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Current Password",
+      "type": "string"
+     },
+     "new_password": {
+      "maxLength": 128,
+      "minLength": 10,
+      "title": "New Password",
+      "type": "string"
+     }
+    },
+    "required": [
+     "current_password",
+     "new_password"
+    ],
+    "title": "ChangePasswordIn",
+    "type": "object"
+   },
    "ChildIn": {
     "properties": {
      "avatar": {
@@ -1043,6 +1065,32 @@
     "title": "FamilyOut",
     "type": "object"
    },
+   "ForgotPasswordIn": {
+    "properties": {
+     "email": {
+      "format": "email",
+      "title": "Email",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email"
+    ],
+    "title": "ForgotPasswordIn",
+    "type": "object"
+   },
+   "ForgotPasswordOut": {
+    "properties": {
+     "status": {
+      "const": "ok",
+      "default": "ok",
+      "title": "Status",
+      "type": "string"
+     }
+    },
+    "title": "ForgotPasswordOut",
+    "type": "object"
+   },
    "GuardianConfirmIn": {
     "properties": {
      "code": {
@@ -1075,20 +1123,53 @@
    },
    "GuardianStartIn": {
     "properties": {
-     "phone": {
-      "pattern": "^\\+?[0-9]{8,15}$",
-      "title": "Phone",
+     "channel": {
+      "default": "sms",
+      "enum": [
+       "sms",
+       "email"
+      ],
+      "title": "Channel",
       "type": "string"
+     },
+     "phone": {
+      "anyOf": [
+       {
+        "pattern": "^\\+?[0-9]{8,15}$",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Phone"
      }
     },
-    "required": [
-     "phone"
-    ],
     "title": "GuardianStartIn",
     "type": "object"
    },
    "GuardianStartOut": {
     "properties": {
+     "channel": {
+      "default": "sms",
+      "enum": [
+       "sms",
+       "email"
+      ],
+      "title": "Channel",
+      "type": "string"
+     },
+     "destination_hint": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Destination Hint"
+     },
      "dev_code": {
       "anyOf": [
        {
@@ -1335,6 +1416,11 @@
      },
      "pin_set": {
       "title": "Pin Set",
+      "type": "boolean"
+     },
+     "temp_login": {
+      "default": false,
+      "title": "Temp Login",
       "type": "boolean"
      },
      "user": {
@@ -1799,6 +1885,396 @@
     "title": "ReviewIn",
     "type": "object"
    },
+   "ScrumBootstrapIn": {
+    "properties": {
+     "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+     }
+    },
+    "required": [
+     "name"
+    ],
+    "title": "ScrumBootstrapIn",
+    "type": "object"
+   },
+   "ScrumMemberCreatedOut": {
+    "description": "Returned once, at creation time only — the access code is never retrievable again.",
+    "properties": {
+     "access_code": {
+      "title": "Access Code",
+      "type": "string"
+     },
+     "member": {
+      "$ref": "#/components/schemas/ScrumMemberOut"
+     }
+    },
+    "required": [
+     "member",
+     "access_code"
+    ],
+    "title": "ScrumMemberCreatedOut",
+    "type": "object"
+   },
+   "ScrumMemberIn": {
+    "properties": {
+     "is_admin": {
+      "default": false,
+      "title": "Is Admin",
+      "type": "boolean"
+     },
+     "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+     }
+    },
+    "required": [
+     "name"
+    ],
+    "title": "ScrumMemberIn",
+    "type": "object"
+   },
+   "ScrumMemberOut": {
+    "properties": {
+     "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "is_admin": {
+      "title": "Is Admin",
+      "type": "boolean"
+     },
+     "name": {
+      "title": "Name",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "is_admin",
+     "created_at"
+    ],
+    "title": "ScrumMemberOut",
+    "type": "object"
+   },
+   "ScrumTaskIn": {
+    "properties": {
+     "assignee_name": {
+      "anyOf": [
+       {
+        "maxLength": 120,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignee Name"
+     },
+     "category": {
+      "default": "dev",
+      "enum": [
+       "content",
+       "dev",
+       "design",
+       "other"
+      ],
+      "title": "Category",
+      "type": "string"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "sprint": {
+      "anyOf": [
+       {
+        "maxLength": 120,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sprint"
+     },
+     "status": {
+      "default": "backlog",
+      "enum": [
+       "backlog",
+       "todo",
+       "in_progress",
+       "review",
+       "done"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "title"
+    ],
+    "title": "ScrumTaskIn",
+    "type": "object"
+   },
+   "ScrumTaskOut": {
+    "properties": {
+     "assignee_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignee Name"
+     },
+     "category": {
+      "enum": [
+       "content",
+       "dev",
+       "design",
+       "other"
+      ],
+      "title": "Category",
+      "type": "string"
+     },
+     "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+     },
+     "created_by_member_id": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created By Member Id"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "position": {
+      "title": "Position",
+      "type": "integer"
+     },
+     "sprint": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sprint"
+     },
+     "status": {
+      "enum": [
+       "backlog",
+       "todo",
+       "in_progress",
+       "review",
+       "done"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     },
+     "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "title",
+     "description",
+     "category",
+     "status",
+     "assignee_name",
+     "sprint",
+     "position",
+     "created_by_member_id",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "ScrumTaskOut",
+    "type": "object"
+   },
+   "ScrumTaskPatch": {
+    "properties": {
+     "assignee_name": {
+      "anyOf": [
+       {
+        "maxLength": 120,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignee Name"
+     },
+     "category": {
+      "anyOf": [
+       {
+        "enum": [
+         "content",
+         "dev",
+         "design",
+         "other"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Category"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Position"
+     },
+     "sprint": {
+      "anyOf": [
+       {
+        "maxLength": 120,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sprint"
+     },
+     "status": {
+      "anyOf": [
+       {
+        "enum": [
+         "backlog",
+         "todo",
+         "in_progress",
+         "review",
+         "done"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Status"
+     },
+     "title": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Title"
+     }
+    },
+    "title": "ScrumTaskPatch",
+    "type": "object"
+   },
+   "ScrumWhoamiOut": {
+    "properties": {
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "is_admin": {
+      "title": "Is Admin",
+      "type": "boolean"
+     },
+     "name": {
+      "title": "Name",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "is_admin"
+    ],
+    "title": "ScrumWhoamiOut",
+    "type": "object"
+   },
    "SessionOut": {
     "properties": {
      "activity": {
@@ -2117,6 +2593,11 @@
      "refresh_token": {
       "title": "Refresh Token",
       "type": "string"
+     },
+     "temp_login": {
+      "default": false,
+      "title": "Temp Login",
+      "type": "boolean"
      },
      "token_type": {
       "const": "bearer",
@@ -3064,6 +3545,95 @@
     "summary": "Planned: not implemented yet",
     "tags": [
      "planned (not implemented)"
+    ]
+   }
+  },
+  "/v1/auth/change-password": {
+   "post": {
+    "description": "Sets a new password. `current_password` is the old password or the emailed temporary one.\nEvery existing session is signed out and a fresh token pair is returned for this device.",
+    "operationId": "change_password_v1_auth_change_password_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChangePasswordIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TokenOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Change Password",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/v1/auth/forgot-password": {
+   "post": {
+    "description": "Emails a temporary password. Always answers the same 202, whether or not the address has an account.",
+    "operationId": "forgot_password_v1_auth_forgot_password_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ForgotPasswordIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "202": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ForgotPasswordOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Forgot Password",
+    "tags": [
+     "auth"
     ]
    }
   },
@@ -5896,6 +6466,488 @@
     "summary": "Planned: not implemented yet",
     "tags": [
      "planned (not implemented)"
+    ]
+   }
+  },
+  "/v1/scrum/bootstrap": {
+   "post": {
+    "description": "Creates the first admin, once. Refuses once any member exists -- re-run POST /members instead.",
+    "operationId": "bootstrap_admin_v1_scrum_bootstrap_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScrumBootstrapIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ScrumMemberCreatedOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Bootstrap Admin",
+    "tags": [
+     "scrum"
+    ]
+   }
+  },
+  "/v1/scrum/members": {
+   "get": {
+    "operationId": "list_members_v1_scrum_members_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ScrumMemberOut"
+         },
+         "title": "Response List Members V1 Scrum Members Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Members",
+    "tags": [
+     "scrum"
+    ]
+   },
+   "post": {
+    "operationId": "add_member_v1_scrum_members_post",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScrumMemberIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ScrumMemberCreatedOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Add Member",
+    "tags": [
+     "scrum"
+    ]
+   }
+  },
+  "/v1/scrum/members/{member_id}": {
+   "delete": {
+    "operationId": "remove_member_v1_scrum_members__member_id__delete",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "member_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Member Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Remove Member",
+    "tags": [
+     "scrum"
+    ]
+   }
+  },
+  "/v1/scrum/tasks": {
+   "get": {
+    "operationId": "list_tasks_v1_scrum_tasks_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ScrumTaskOut"
+         },
+         "title": "Response List Tasks V1 Scrum Tasks Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Tasks",
+    "tags": [
+     "scrum"
+    ]
+   },
+   "post": {
+    "operationId": "create_task_v1_scrum_tasks_post",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScrumTaskIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ScrumTaskOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Task",
+    "tags": [
+     "scrum"
+    ]
+   }
+  },
+  "/v1/scrum/tasks/{task_id}": {
+   "delete": {
+    "operationId": "delete_task_v1_scrum_tasks__task_id__delete",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Delete Task",
+    "tags": [
+     "scrum"
+    ]
+   },
+   "patch": {
+    "operationId": "patch_task_v1_scrum_tasks__task_id__patch",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScrumTaskPatch"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ScrumTaskOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Patch Task",
+    "tags": [
+     "scrum"
+    ]
+   }
+  },
+  "/v1/scrum/whoami": {
+   "get": {
+    "operationId": "whoami_v1_scrum_whoami_get",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "x-scrum-code",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Scrum-Code"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ScrumWhoamiOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Whoami",
+    "tags": [
+     "scrum"
     ]
    }
   },

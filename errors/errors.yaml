@@ -14,6 +14,8 @@ codes:
   not_found: The resource does not exist or is not visible to the caller.
   not_implemented: This endpoint is planned but not built yet.
   otp_invalid: The verification code is incorrect or expired.
+  password_change_required: You signed in with a temporary password. Set a new password
+    to continue.
   pin_invalid: The PIN is incorrect.
   pin_locked: The PIN is temporarily locked after too many attempts.
   pin_not_set: No parent PIN has been set.
