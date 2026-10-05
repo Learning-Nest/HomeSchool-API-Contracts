@@ -25,6 +25,12 @@ jobs:
           json.load(open('openapi/openapi.json'))
           s = json.load(open('schemas/activity-content.schema.json'))
           validator_for(s).check_schema(s)
+          s2 = json.load(open('schemas/activity-content.v2.schema.json'))
+          validator_for(s2).check_schema(s2)
+          v = validator_for(s2)(s2)
+          v.validate(json.load(open('test-vectors/activity-v2/mixed-practice.stored.json')))
+          json.load(open('test-vectors/activity-v2/invalid-cases.json'))
+          json.load(open('test-vectors/activity-v2/mixed-practice.wire.json'))
           for f in ['test-vectors/mastery/mastery-vectors.json', 'test-vectors/mastery/streak-vectors.json']:
               json.load(open(f))
           "

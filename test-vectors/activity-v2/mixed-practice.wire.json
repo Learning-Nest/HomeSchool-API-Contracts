@@ -1,0 +1,70 @@
+{
+  "slug": "fruit-count-and-add",
+  "title": "Fruit: count and add",
+  "subject": "MAT",
+  "level_from": "L1",
+  "level_to": "L2",
+  "duration_min": 20,
+  "skills": [
+    "MAT.NUM.COUNT20",
+    "MAT.NUM.ADD10",
+    "MAT.NUM.COMPARE",
+    "MAT.MEAS.UNITS"
+  ],
+  "tags": [
+    "counting"
+  ],
+  "summary": "Count the fruit, add two small numbers, then measure with a ruler.",
+  "locale": "en-IN",
+  "materials": [
+    "ruler",
+    "3 fruits"
+  ],
+  "interests": [
+    "food"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "instruction",
+      "text": "Put 3 fruits on the table. Look at them."
+    },
+    {
+      "id": "q1",
+      "type": "single_choice",
+      "prompt": "How many fruits are on the table?",
+      "options": [
+        {
+          "id": "a",
+          "label": "2"
+        },
+        {
+          "id": "b",
+          "label": "3"
+        },
+        {
+          "id": "c",
+          "label": "4"
+        }
+      ],
+      "hint": "Touch each fruit as you count."
+    },
+    {
+      "id": "q2",
+      "type": "numeric_input",
+      "prompt": "You eat 1 fruit and a friend brings 2. How many fruits now?",
+      "hint": "Start from 3 fruits."
+    },
+    {
+      "id": "chk",
+      "type": "parent_checklist",
+      "prompt": "Did your child measure a fruit with the ruler?",
+      "rating_options": [
+        "trying",
+        "with_help",
+        "independent"
+      ],
+      "skill_code": "MAT.MEAS.UNITS"
+    }
+  ]
+}

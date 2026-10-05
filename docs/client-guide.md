@@ -68,7 +68,7 @@ A child never has credentials. The parent signs in; the app then uses two kinds 
 ## Activities and the player
 
 `GET /activities` (published only; filters `subject`, `level`, `interest`, `q`, `limit`, `offset`) and `GET /activities/{id}` return
-the definition **without answer keys**. Definition shape: `schemas/activity-content.schema.json`. Answers are always scored on the server.
+the definition **without answer keys**. Definition shape: `schemas/activity-content.schema.json` (the server also stores format v2 documents, `docs/activity-format-v2.md`, but always sends this shape). Answers are always scored on the server.
 
 | step `type` | what the client shows | answer value sent in `answers[step_id]` |
 |---|---|---|
