@@ -93,6 +93,9 @@ parent_assist?}` (parent token only; can be repeated). `GET /children/{id}/histo
 
 ## Planning, progress, recommendations
 
+* `GET /children/{id}/library?subject=&q=&limit=&offset=` is the parent's Activity library for one child: published activities in the subject whose 
+  level range includes the child's level (every level when the child has none), each with `times_done`, `last_done_at` and `planned_for` (the next planned day), 
+  activities not yet done first. Add one with `POST /children/{id}/plan/items`.
 * `GET /children/{id}/plan?week_start=` (any date; the week starts Monday), `GET /children/{id}/today`, `POST /children/{id}/plan/items`,
   `PATCH|DELETE /plan-items/{id}`. Statuses: `planned → in_progress → completed`, or `skipped`.
 * `GET /children/{id}/mastery[?subject=]` (parent): skills with `status` `emerging|developing|secure`, `score` 0..1, `confidence`,
