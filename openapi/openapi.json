@@ -92,6 +92,128 @@
     "title": "ActivityDetail",
     "type": "object"
    },
+   "ActivityDraftIn": {
+    "properties": {
+     "definition": {
+      "additionalProperties": true,
+      "title": "Definition",
+      "type": "object"
+     }
+    },
+    "required": [
+     "definition"
+    ],
+    "title": "ActivityDraftIn",
+    "type": "object"
+   },
+   "ActivityEventOut": {
+    "properties": {
+     "action": {
+      "title": "Action",
+      "type": "string"
+     },
+     "activity_id": {
+      "format": "uuid",
+      "title": "Activity Id",
+      "type": "string"
+     },
+     "activity_slug": {
+      "title": "Activity Slug",
+      "type": "string"
+     },
+     "activity_title": {
+      "title": "Activity Title",
+      "type": "string"
+     },
+     "actor_id": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Actor Id"
+     },
+     "actor_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Actor Name"
+     },
+     "at": {
+      "format": "date-time",
+      "title": "At",
+      "type": "string"
+     },
+     "detail": {
+      "additionalProperties": true,
+      "title": "Detail",
+      "type": "object"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "status_from": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Status From"
+     },
+     "status_to": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Status To"
+     },
+     "version": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Version"
+     }
+    },
+    "required": [
+     "id",
+     "at",
+     "action",
+     "actor_id",
+     "actor_name",
+     "activity_id",
+     "activity_slug",
+     "activity_title",
+     "version",
+     "status_from",
+     "status_to",
+     "detail"
+    ],
+    "title": "ActivityEventOut",
+    "type": "object"
+   },
    "ActivitySummary": {
     "properties": {
      "duration_min": {
@@ -171,6 +293,41 @@
    },
    "AdminActivityDetail": {
     "properties": {
+     "created_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created At"
+     },
+     "created_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created By"
+     },
+     "created_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created By Name"
+     },
      "definition": {
       "additionalProperties": true,
       "title": "Definition",
@@ -192,6 +349,58 @@
       "title": "Interest Tags",
       "type": "array"
      },
+     "is_validated": {
+      "default": false,
+      "title": "Is Validated",
+      "type": "boolean"
+     },
+     "last_edited_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Edited At"
+     },
+     "last_edited_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Edited By"
+     },
+     "last_edited_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Edited By Name"
+     },
+     "last_validated_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Validated At"
+     },
      "level_from": {
       "title": "Level From",
       "type": "string"
@@ -207,6 +416,52 @@
       "title": "Materials",
       "type": "array"
      },
+     "review_note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Review Note"
+     },
+     "reviewed_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed At"
+     },
+     "reviewed_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed By"
+     },
+     "reviewed_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed By Name"
+     },
      "skills": {
       "items": {
        "type": "string"
@@ -218,6 +473,11 @@
       "title": "Slug",
       "type": "string"
      },
+     "source": {
+      "default": "bundle",
+      "title": "Source",
+      "type": "string"
+     },
      "status": {
       "title": "Status",
       "type": "string"
@@ -225,6 +485,18 @@
      "subject_code": {
       "title": "Subject Code",
       "type": "string"
+     },
+     "submitted_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Submitted At"
      },
      "summary": {
       "anyOf": [
@@ -273,6 +545,41 @@
    },
    "AdminActivitySummary": {
     "properties": {
+     "created_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created At"
+     },
+     "created_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created By"
+     },
+     "created_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Created By Name"
+     },
      "duration_min": {
       "title": "Duration Min",
       "type": "integer"
@@ -289,6 +596,58 @@
       "title": "Interest Tags",
       "type": "array"
      },
+     "is_validated": {
+      "default": false,
+      "title": "Is Validated",
+      "type": "boolean"
+     },
+     "last_edited_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Edited At"
+     },
+     "last_edited_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Edited By"
+     },
+     "last_edited_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Edited By Name"
+     },
+     "last_validated_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Validated At"
+     },
      "level_from": {
       "title": "Level From",
       "type": "string"
@@ -304,8 +663,59 @@
       "title": "Materials",
       "type": "array"
      },
+     "review_note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Review Note"
+     },
+     "reviewed_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed At"
+     },
+     "reviewed_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed By"
+     },
+     "reviewed_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed By Name"
+     },
      "slug": {
       "title": "Slug",
+      "type": "string"
+     },
+     "source": {
+      "default": "bundle",
+      "title": "Source",
       "type": "string"
      },
      "status": {
@@ -315,6 +725,18 @@
      "subject_code": {
       "title": "Subject Code",
       "type": "string"
+     },
+     "submitted_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Submitted At"
      },
      "summary": {
       "anyOf": [
@@ -406,6 +828,18 @@
    },
    "AdminStatusIn": {
     "properties": {
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 1000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     },
      "status": {
       "enum": [
        "draft",
@@ -421,6 +855,68 @@
      "status"
     ],
     "title": "AdminStatusIn",
+    "type": "object"
+   },
+   "AssetOut": {
+    "properties": {
+     "activity_id": {
+      "format": "uuid",
+      "title": "Activity Id",
+      "type": "string"
+     },
+     "bytes": {
+      "title": "Bytes",
+      "type": "integer"
+     },
+     "content_type": {
+      "title": "Content Type",
+      "type": "string"
+     },
+     "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+     },
+     "height": {
+      "title": "Height",
+      "type": "integer"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "sha256": {
+      "title": "Sha256",
+      "type": "string"
+     },
+     "url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Url"
+     },
+     "width": {
+      "title": "Width",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "activity_id",
+     "content_type",
+     "bytes",
+     "width",
+     "height",
+     "sha256",
+     "created_at"
+    ],
+    "title": "AssetOut",
     "type": "object"
    },
    "AutosaveIn": {
@@ -1016,6 +1512,173 @@
      "recommendations"
     ],
     "title": "DashboardOut",
+    "type": "object"
+   },
+   "EducatorActivityOut": {
+    "properties": {
+     "activities": {
+      "items": {
+       "$ref": "#/components/schemas/AdminActivitySummary"
+      },
+      "title": "Activities",
+      "type": "array"
+     },
+     "educator": {
+      "$ref": "#/components/schemas/EducatorOut"
+     },
+     "events": {
+      "items": {
+       "$ref": "#/components/schemas/ActivityEventOut"
+      },
+      "title": "Events",
+      "type": "array"
+     }
+    },
+    "required": [
+     "educator",
+     "activities",
+     "events"
+    ],
+    "title": "EducatorActivityOut",
+    "type": "object"
+   },
+   "EducatorCreateIn": {
+    "properties": {
+     "email": {
+      "format": "email",
+      "title": "Email",
+      "type": "string"
+     },
+     "full_name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Full Name",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email",
+     "full_name"
+    ],
+    "title": "EducatorCreateIn",
+    "type": "object"
+   },
+   "EducatorCreateOut": {
+    "properties": {
+     "educator": {
+      "$ref": "#/components/schemas/EducatorOut"
+     },
+     "email_sent": {
+      "title": "Email Sent",
+      "type": "boolean"
+     },
+     "existing_account": {
+      "title": "Existing Account",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "educator",
+     "existing_account",
+     "email_sent"
+    ],
+    "title": "EducatorCreateOut",
+    "type": "object"
+   },
+   "EducatorOut": {
+    "properties": {
+     "active": {
+      "title": "Active",
+      "type": "boolean"
+     },
+     "activities": {
+      "title": "Activities",
+      "type": "integer"
+     },
+     "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+     },
+     "drafts": {
+      "title": "Drafts",
+      "type": "integer"
+     },
+     "email": {
+      "title": "Email",
+      "type": "string"
+     },
+     "full_name": {
+      "title": "Full Name",
+      "type": "string"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "in_review": {
+      "title": "In Review",
+      "type": "integer"
+     },
+     "last_active_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Active At"
+     },
+     "platform_role": {
+      "title": "Platform Role",
+      "type": "string"
+     },
+     "published": {
+      "title": "Published",
+      "type": "integer"
+     },
+     "returned": {
+      "title": "Returned",
+      "type": "integer"
+     },
+     "submissions": {
+      "title": "Submissions",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "email",
+     "full_name",
+     "active",
+     "platform_role",
+     "created_at",
+     "activities",
+     "drafts",
+     "in_review",
+     "published",
+     "submissions",
+     "returned",
+     "last_active_at"
+    ],
+    "title": "EducatorOut",
+    "type": "object"
+   },
+   "EducatorPatchIn": {
+    "properties": {
+     "active": {
+      "title": "Active",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "active"
+    ],
+    "title": "EducatorPatchIn",
     "type": "object"
    },
    "ElevationOut": {
@@ -1927,6 +2590,30 @@
     "title": "PlanOut",
     "type": "object"
    },
+   "ProblemOut": {
+    "properties": {
+     "message": {
+      "title": "Message",
+      "type": "string"
+     },
+     "step": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Step"
+     }
+    },
+    "required": [
+     "message"
+    ],
+    "title": "ProblemOut",
+    "type": "object"
+   },
    "RecommendationOut": {
     "properties": {
      "activity": {
@@ -2577,6 +3264,43 @@
     "title": "SkillOut",
     "type": "object"
    },
+   "StaffMeOut": {
+    "properties": {
+     "capabilities": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Capabilities",
+      "type": "array"
+     },
+     "email": {
+      "title": "Email",
+      "type": "string"
+     },
+     "full_name": {
+      "title": "Full Name",
+      "type": "string"
+     },
+     "platform_role": {
+      "title": "Platform Role",
+      "type": "string"
+     },
+     "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+     }
+    },
+    "required": [
+     "user_id",
+     "email",
+     "full_name",
+     "platform_role",
+     "capabilities"
+    ],
+    "title": "StaffMeOut",
+    "type": "object"
+   },
    "SubjectOut": {
     "properties": {
      "code": {
@@ -2763,6 +3487,32 @@
     "title": "UserOut",
     "type": "object"
    },
+   "ValidateIn": {
+    "properties": {
+     "activity_id": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Activity Id"
+     },
+     "definition": {
+      "additionalProperties": true,
+      "title": "Definition",
+      "type": "object"
+     }
+    },
+    "required": [
+     "definition"
+    ],
+    "title": "ValidateIn",
+    "type": "object"
+   },
    "ValidationError": {
     "properties": {
      "ctx": {
@@ -2801,6 +3551,39 @@
      "type"
     ],
     "title": "ValidationError",
+    "type": "object"
+   },
+   "ValidationOut": {
+    "properties": {
+     "ok": {
+      "title": "Ok",
+      "type": "boolean"
+     },
+     "problems": {
+      "items": {
+       "$ref": "#/components/schemas/ProblemOut"
+      },
+      "title": "Problems",
+      "type": "array"
+     },
+     "validated_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Validated At"
+     }
+    },
+    "required": [
+     "ok",
+     "problems"
+    ],
+    "title": "ValidationOut",
     "type": "object"
    }
   },
@@ -3081,6 +3864,23 @@
      },
      {
       "in": "query",
+      "name": "author",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Author"
+      }
+     },
+     {
+      "in": "query",
       "name": "q",
       "required": false,
       "schema": {
@@ -3174,6 +3974,53 @@
     ]
    }
   },
+  "/v1/admin/activities/validate": {
+   "post": {
+    "description": "Dry run of the full check. Saves nothing.",
+    "operationId": "validate_draft_v1_admin_activities_validate_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ValidateIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ValidationOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Validate Draft",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
   "/v1/admin/activities/{activity_id}": {
    "get": {
     "operationId": "get_activity_v1_admin_activities__activity_id__get",
@@ -3222,6 +4069,58 @@
     ]
    }
   },
+  "/v1/admin/activities/{activity_id}/assets": {
+   "get": {
+    "operationId": "list_assets_v1_admin_activities__activity_id__assets_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/AssetOut"
+         },
+         "title": "Response List Assets V1 Admin Activities  Activity Id  Assets Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "List Assets",
+    "tags": [
+     "assets"
+    ]
+   }
+  },
   "/v1/admin/activities/{activity_id}/definition": {
    "put": {
     "operationId": "put_definition_v1_admin_activities__activity_id__definition_put",
@@ -3234,6 +4133,18 @@
        "format": "uuid",
        "title": "Activity Id",
        "type": "string"
+      }
+     },
+     {
+      "description": "false = store a draft that is not valid yet (drafts only)",
+      "in": "query",
+      "name": "strict",
+      "required": false,
+      "schema": {
+       "default": true,
+       "description": "false = store a draft that is not valid yet (drafts only)",
+       "title": "Strict",
+       "type": "boolean"
       }
      }
     ],
@@ -3338,6 +4249,264 @@
     ]
    }
   },
+  "/v1/admin/activities/{activity_id}/submit": {
+   "post": {
+    "operationId": "submit_v1_admin_activities__activity_id__submit_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdminActivityDetail"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Submit",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/activities/{activity_id}/validate": {
+   "post": {
+    "description": "Validates the SAVED content and records the result: Submit is allowed only while this exact content is valid.",
+    "operationId": "validate_saved_v1_admin_activities__activity_id__validate_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ValidationOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Validate Saved",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/activity-log": {
+   "get": {
+    "operationId": "activity_log_v1_admin_activity_log_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "actor_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Actor Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "action",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 40,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Action"
+      }
+     },
+     {
+      "in": "query",
+      "name": "activity_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Activity Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date-time",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "From"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date-time",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "To"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "format",
+      "required": false,
+      "schema": {
+       "default": "json",
+       "pattern": "^(json|csv)$",
+       "title": "Format",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ActivityEventOut"
+         },
+         "title": "Response Activity Log V1 Admin Activity Log Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Activity Log",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
   "/v1/admin/assessments": {
    "post": {
     "operationId": "planned_POST__v1_admin_assessments_v1_admin_assessments_post",
@@ -3354,6 +4523,95 @@
     "summary": "Planned: not implemented yet",
     "tags": [
      "planned (not implemented)"
+    ]
+   }
+  },
+  "/v1/admin/assets": {
+   "post": {
+    "operationId": "upload_asset_v1_admin_assets_post",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AssetOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Upload Asset",
+    "tags": [
+     "assets"
+    ]
+   }
+  },
+  "/v1/admin/assets/{asset_id}": {
+   "delete": {
+    "operationId": "delete_asset_v1_admin_assets__asset_id__delete",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "asset_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Asset Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Delete Asset",
+    "tags": [
+     "assets"
     ]
    }
   },
@@ -3422,6 +4680,232 @@
     ]
    }
   },
+  "/v1/admin/educators": {
+   "get": {
+    "operationId": "list_educators_v1_admin_educators_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/EducatorOut"
+         },
+         "title": "Response List Educators V1 Admin Educators Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "List Educators",
+    "tags": [
+     "admin"
+    ]
+   },
+   "post": {
+    "operationId": "create_educator_v1_admin_educators_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EducatorCreateIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EducatorCreateOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Create Educator",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/educators/{educator_id}": {
+   "patch": {
+    "operationId": "patch_educator_v1_admin_educators__educator_id__patch",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "educator_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Educator Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EducatorPatchIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EducatorOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Patch Educator",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/educators/{educator_id}/activity": {
+   "get": {
+    "operationId": "educator_activity_v1_admin_educators__educator_id__activity_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "educator_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Educator Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date-time",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "From"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date-time",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "To"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 200,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EducatorActivityOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Educator Activity",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
   "/v1/admin/feature-flags": {
    "get": {
     "operationId": "planned_GET__v1_admin_feature_flags_v1_admin_feature_flags_get",
@@ -3457,6 +4941,32 @@
     "summary": "Planned: not implemented yet",
     "tags": [
      "planned (not implemented)"
+    ]
+   }
+  },
+  "/v1/admin/me": {
+   "get": {
+    "operationId": "me_v1_admin_me_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/StaffMeOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Me",
+    "tags": [
+     "admin"
     ]
    }
   },

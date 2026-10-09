@@ -76,13 +76,41 @@ option/item; scored exercises have a key and at least one known skill; no skill 
 least one that gives evidence; top-level `skills` equals the derived list (the server fixes it before validating).
 Failures return `422 content_invalid` with a `problems` list of readable lines.
 
-## What the app receives (no app change in release 1)
+## What the app receives
 
 The server projects a v2 document back to the v1 wire shape: disabled exercises are dropped; `config` is flattened onto
 the exercise; an instruction's `prompt` is sent as `text`; `feedback.hints[0]` is sent as `hint`; a parent checklist
 gets `skill_code` (its first skill); `partial_credit` is passed through. `key`, `scoring`, per-exercise `skills`,
 `feedback`, `title`, `authoring` and `schema_version` are not sent. Session results gain `result.steps[id].skills`
 (the app ignores it).
+
+## Images
+
+Any exercise, option, match item (left or right) or sequence item may carry one picture:
+
+```json
+"image": { "asset": "<uuid of an uploaded asset>", "alt": "A red apple on a table" }
+```
+
+`alt` (1-200 characters) is required: it is what screen readers and the app read aloud. Pictures are uploaded by
+educators and admins with `POST /v1/admin/assets?activity_id=<id>` (raw body; JPEG, PNG or WebP, up to 5 MB). The server
+strips metadata, applies rotation, scales to at most 1024 px on the long side and stores a WebP, so the stored size is
+small. Limits per activity: 30 images and 5 MB stored. An asset belongs to one activity and cannot be referenced from
+another; a picture still used by the current draft or by any frozen version cannot be deleted (`409 asset_in_use`).
+Image files are not supported in `content-curriculum` bundles yet (bundle import and `tools/validate.py` reject them);
+they are added in the editor.
+
+**What the app receives.** Each `image` becomes `{ "sha256", "width", "height", "alt" }` in place of the asset id, and
+the activity (`GET /v1/activities/{id}`) and every session response carry a top-level manifest:
+
+```json
+"images": [ { "id": "<uuid>", "url": "https://...", "sha256": "...", "bytes": 18342,
+              "width": 800, "height": 600, "content_type": "image/webp" } ]
+```
+
+The app downloads every `url` when the activity loads and caches the file by `sha256` (the content never changes for a
+given hash, so a cached copy is always valid). `url` is a short-lived signed link (default one hour): refetch the
+activity for fresh links rather than storing them. Images are never needed to score an answer.
 
 ## Upgrading v1 documents
 

@@ -1,5 +1,9 @@
 # Machine-readable error codes. Response body: {"error": {"code", "message", "request_id"}}
 codes:
+  activity_locked: This activity cannot be edited in its current state.
+  asset_in_use: The image is still used by the activity or by a published version.
+  asset_too_large: The image is too large.
+  asset_type_not_allowed: Only JPEG, PNG or WebP images are accepted.
   conflict: The request conflicts with the current state (for example a stale version).
   content_invalid: The content failed validation.
   delivery_failed: The verification code could not be delivered.
@@ -20,5 +24,8 @@ codes:
   pin_locked: The PIN is temporarily locked after too many attempts.
   pin_not_set: No parent PIN has been set.
   rate_limited: Too many attempts. Try again later.
+  storage_unavailable: Image storage is not configured.
   unauthenticated: Missing, invalid or expired token.
   validation_error: The request body or parameters are invalid.
+  validation_required: Validate the activity (it must pass) before submitting it for
+    review.
