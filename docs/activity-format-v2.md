@@ -100,8 +100,8 @@ another; a picture still used by the current draft or by any frozen version cann
 Image files are not supported in `content-curriculum` bundles yet (bundle import and `tools/validate.py` reject them);
 they are added in the editor.
 
-**What the app receives.** Each `image` becomes `{ "sha256", "width", "height", "alt" }` in place of the asset id, and
-the activity (`GET /v1/activities/{id}`) and every session response carry a top-level manifest:
+**What the app receives.** Each `image` keeps its `asset` id and `alt` and gains `sha256`, `width` and `height`
+(`"missing": true` instead when the picture no longer exists, in which case the app shows the text), and the activity (`GET /v1/activities/{id}`) and every session response carry a top-level manifest:
 
 ```json
 "images": [ { "id": "<uuid>", "url": "https://...", "sha256": "...", "bytes": 18342,
@@ -111,6 +111,13 @@ the activity (`GET /v1/activities/{id}`) and every session response carry a top-
 The app downloads every `url` when the activity loads and caches the file by `sha256` (the content never changes for a
 given hash, so a cached copy is always valid). `url` is a short-lived signed link (default one hour): refetch the
 activity for fresh links rather than storing them. Images are never needed to score an answer.
+
+The mobile app (`lib/models/images.dart`, `lib/core/image_store.dart`) matches each `image.asset` to the manifest entry
+with the same `id`, downloads the pictures of the child-visible exercises in the background as soon as the activity
+loads, checks every file against its `sha256`, and keeps it in the app's cache folder named by that hash (trimmed to
+about 150 MB, oldest first). Signed links never carry the sign-in token. A picture that is missing, fails to download or
+fails the hash check is simply not shown: option, item and match labels are always shown as text next to or instead of
+the picture, and a step picture falls back to its `alt` text, so an exercise can always be answered.
 
 ## Upgrading v1 documents
 

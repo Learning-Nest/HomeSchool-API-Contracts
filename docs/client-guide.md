@@ -84,6 +84,10 @@ the definition **without answer keys**. Definition shape: `schemas/activity-cont
 | `audio_record`, `photo_evidence` | MVP: explain it is done with a grown-up, allow "Done / skip" | none |
 | `parent_checklist` | **not shown to the child**; rated by a parent after submit | none |
 
+Any step, option, item or match member may also carry `image: {asset, alt, sha256, width, height, missing?}`; the definition then has
+a top-level `images` manifest (`id, url, sha256, bytes, width, height, content_type`). Download and cache by `sha256`, show the text when a
+picture is unavailable, never block an exercise on a picture (details in `activity-format-v2.md`, "Images").
+
 `hint` (optional on any step): a "Hint" button; every use increases `hints_used`. `parent_assist: true` when a grown-up helped.
 Flow: `POST /sessions` → optional `PUT /sessions/{id}/autosave {answers, hints_used, parent_assist}` (merges, ignores nothing but rejects
 unknown step ids) → `POST /sessions/{id}/submit {answers, hints_used, parent_assist, duration_sec, occurred_at?}` → response `SessionOut`
