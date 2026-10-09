@@ -1585,6 +1585,23 @@
     "title": "EducatorCreateOut",
     "type": "object"
    },
+   "EducatorInviteOut": {
+    "properties": {
+     "educator": {
+      "$ref": "#/components/schemas/EducatorOut"
+     },
+     "email_sent": {
+      "title": "Email Sent",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "educator",
+     "email_sent"
+    ],
+    "title": "EducatorInviteOut",
+    "type": "object"
+   },
    "EducatorOut": {
     "properties": {
      "active": {
@@ -1620,6 +1637,11 @@
      "in_review": {
       "title": "In Review",
       "type": "integer"
+     },
+     "invite_pending": {
+      "default": false,
+      "title": "Invite Pending",
+      "type": "boolean"
      },
      "last_active_at": {
       "anyOf": [
@@ -4901,6 +4923,55 @@
      }
     ],
     "summary": "Educator Activity",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/educators/{educator_id}/invite": {
+   "post": {
+    "description": "Issues a fresh temporary password (valid INVITE_VALID_DAYS) and emails it to an educator who has never signed\nin with a password of their own. The earlier temporary password stops working. The password is never returned.",
+    "operationId": "resend_invitation_v1_admin_educators__educator_id__invite_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "educator_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Educator Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EducatorInviteOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Resend Invitation",
     "tags": [
      "admin"
     ]
