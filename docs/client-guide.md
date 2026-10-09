@@ -51,6 +51,7 @@ A child never has credentials. The parent signs in; the app then uses two kinds 
 * **PIN elevation** guards sensitive actions: `PUT /me/pin {pin, current_pin?}` (4–6 digits), then `POST /me/pin/verify {pin}` →
   `{elevation_token, expires_in: 300}`. Send it as header `X-Elevation-Token` on: `DELETE /children/{id}` and
   `DELETE /children/{id}/sessions` (leave child mode; also revokes the child tokens). Without it: `403 elevation_required`.
+* If a PIN already exists, `PUT /me/pin` without `current_pin` answers `409 pin_already_set`: refresh `GET /me` (`pin_set` is then true) and show the PIN entry (or "Forgot PIN?") instead of the first-time form.
 * Lockout (`429 pin_locked`, `retry_after_seconds`): 5 wrong PINs → 15 minutes, 10 → 1 hour, 15 → 24 hours; every further wrong PIN
   after the 5th locks again. `POST /me/pin/reset {password, pin}` resets the PIN using the account password (also clears the lock).
 * The app should require the PIN (client side, then obtain an elevation token) whenever the user leaves child mode for parent screens.

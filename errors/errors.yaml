@@ -20,6 +20,8 @@ codes:
   otp_invalid: The verification code is incorrect or expired.
   password_change_required: You signed in with a temporary password. Set a new password
     to continue.
+  pin_already_set: A parent PIN is already set. Send current_pin to change it, or
+    use the PIN reset.
   pin_invalid: The PIN is incorrect.
   pin_locked: The PIN is temporarily locked after too many attempts.
   pin_not_set: No parent PIN has been set.
