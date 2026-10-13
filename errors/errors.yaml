@@ -14,6 +14,7 @@ codes:
     can be created.
   internal_error: Unexpected server error.
   invalid_credentials: Email or password is incorrect.
+  lesson_incomplete: The lessons unlocked so far are not finished yet.
   method_not_allowed: This method is not supported on this path.
   not_found: The resource does not exist or is not visible to the caller.
   not_implemented: This endpoint is planned but not built yet.

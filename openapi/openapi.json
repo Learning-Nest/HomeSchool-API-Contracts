@@ -39,6 +39,13 @@
       "title": "Materials",
       "type": "array"
      },
+     "placements": {
+      "items": {
+       "$ref": "#/components/schemas/PlacementOut"
+      },
+      "title": "Placements",
+      "type": "array"
+     },
      "skills": {
       "items": {
        "type": "string"
@@ -212,6 +219,23 @@
      "detail"
     ],
     "title": "ActivityEventOut",
+    "type": "object"
+   },
+   "ActivityLessonsIn": {
+    "properties": {
+     "lessons": {
+      "items": {
+       "$ref": "#/components/schemas/LessonRef"
+      },
+      "maxItems": 20,
+      "title": "Lessons",
+      "type": "array"
+     }
+    },
+    "required": [
+     "lessons"
+    ],
+    "title": "ActivityLessonsIn",
     "type": "object"
    },
    "ActivitySummary": {
@@ -1007,6 +1031,227 @@
     "title": "BaselineOut",
     "type": "object"
    },
+   "BoardOut": {
+    "properties": {
+     "code": {
+      "title": "Code",
+      "type": "string"
+     },
+     "name": {
+      "title": "Name",
+      "type": "string"
+     }
+    },
+    "required": [
+     "code",
+     "name"
+    ],
+    "title": "BoardOut",
+    "type": "object"
+   },
+   "BookDetail": {
+    "properties": {
+     "board_code": {
+      "title": "Board Code",
+      "type": "string"
+     },
+     "code": {
+      "title": "Code",
+      "type": "string"
+     },
+     "edition_year": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Edition Year"
+     },
+     "grade": {
+      "title": "Grade",
+      "type": "string"
+     },
+     "lesson_count": {
+      "title": "Lesson Count",
+      "type": "integer"
+     },
+     "lessons": {
+      "items": {
+       "$ref": "#/components/schemas/LessonOut"
+      },
+      "title": "Lessons",
+      "type": "array"
+     },
+     "level_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Level Code"
+     },
+     "publisher": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Publisher"
+     },
+     "subject_code": {
+      "title": "Subject Code",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "code",
+     "board_code",
+     "grade",
+     "subject_code",
+     "title",
+     "publisher",
+     "edition_year",
+     "level_code",
+     "lesson_count",
+     "lessons"
+    ],
+    "title": "BookDetail",
+    "type": "object"
+   },
+   "BookOut": {
+    "properties": {
+     "board_code": {
+      "title": "Board Code",
+      "type": "string"
+     },
+     "code": {
+      "title": "Code",
+      "type": "string"
+     },
+     "edition_year": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Edition Year"
+     },
+     "grade": {
+      "title": "Grade",
+      "type": "string"
+     },
+     "lesson_count": {
+      "title": "Lesson Count",
+      "type": "integer"
+     },
+     "level_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Level Code"
+     },
+     "publisher": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Publisher"
+     },
+     "subject_code": {
+      "title": "Subject Code",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "code",
+     "board_code",
+     "grade",
+     "subject_code",
+     "title",
+     "publisher",
+     "edition_year",
+     "level_code",
+     "lesson_count"
+    ],
+    "title": "BookOut",
+    "type": "object"
+   },
+   "BookPathOut": {
+    "properties": {
+     "book": {
+      "$ref": "#/components/schemas/BookOut"
+     },
+     "can_unlock_next": {
+      "title": "Can Unlock Next",
+      "type": "boolean"
+     },
+     "lessons": {
+      "items": {
+       "$ref": "#/components/schemas/PathLessonOut"
+      },
+      "title": "Lessons",
+      "type": "array"
+     },
+     "next_lesson_position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Next Lesson Position"
+     },
+     "pass_score": {
+      "title": "Pass Score",
+      "type": "number"
+     },
+     "unlocked_through": {
+      "title": "Unlocked Through",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "book",
+     "unlocked_through",
+     "pass_score",
+     "next_lesson_position",
+     "can_unlock_next",
+     "lessons"
+    ],
+    "title": "BookPathOut",
+    "type": "object"
+   },
    "BundleIn": {
     "properties": {
      "activities": {
@@ -1022,6 +1267,22 @@
       "title": "Auto Publish",
       "type": "boolean"
      },
+     "boards": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Boards",
+      "type": "array"
+     },
+     "books": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Books",
+      "type": "array"
+     },
      "dry_run": {
       "default": true,
       "title": "Dry Run",
@@ -1033,6 +1294,14 @@
        "type": "object"
       },
       "title": "Interests",
+      "type": "array"
+     },
+     "lesson_links": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Lesson Links",
       "type": "array"
      },
      "levels": {
@@ -1142,6 +1411,38 @@
      "new_password"
     ],
     "title": "ChangePasswordIn",
+    "type": "object"
+   },
+   "ChildBookOut": {
+    "properties": {
+     "book": {
+      "$ref": "#/components/schemas/BookOut"
+     },
+     "can_unlock_next": {
+      "title": "Can Unlock Next",
+      "type": "boolean"
+     },
+     "lessons_complete": {
+      "title": "Lessons Complete",
+      "type": "integer"
+     },
+     "lessons_total": {
+      "title": "Lessons Total",
+      "type": "integer"
+     },
+     "unlocked_through": {
+      "title": "Unlocked Through",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "book",
+     "unlocked_through",
+     "lessons_total",
+     "lessons_complete",
+     "can_unlock_next"
+    ],
+    "title": "ChildBookOut",
     "type": "object"
    },
    "ChildIn": {
@@ -1956,6 +2257,69 @@
     "title": "HistoryItem",
     "type": "object"
    },
+   "LessonOut": {
+    "properties": {
+     "activity_count": {
+      "title": "Activity Count",
+      "type": "integer"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Label"
+     },
+     "position": {
+      "title": "Position",
+      "type": "integer"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "position",
+     "label",
+     "title",
+     "activity_count"
+    ],
+    "title": "LessonOut",
+    "type": "object"
+   },
+   "LessonRef": {
+    "properties": {
+     "book": {
+      "maxLength": 60,
+      "minLength": 1,
+      "title": "Book",
+      "type": "string"
+     },
+     "lesson": {
+      "exclusiveMinimum": 0.0,
+      "title": "Lesson",
+      "type": "integer"
+     },
+     "order": {
+      "default": 0,
+      "maximum": 100000.0,
+      "minimum": 0.0,
+      "title": "Order",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "book",
+     "lesson"
+    ],
+    "title": "LessonRef",
+    "type": "object"
+   },
    "LevelOut": {
     "properties": {
      "code": {
@@ -2263,6 +2627,108 @@
     "title": "MembershipOut",
     "type": "object"
    },
+   "NextUpOut": {
+    "description": "An activity a child can do now, in textbook order.",
+    "properties": {
+     "book_code": {
+      "title": "Book Code",
+      "type": "string"
+     },
+     "duration_min": {
+      "title": "Duration Min",
+      "type": "integer"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "interest_tags": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Interest Tags",
+      "type": "array"
+     },
+     "lesson_position": {
+      "title": "Lesson Position",
+      "type": "integer"
+     },
+     "lesson_title": {
+      "title": "Lesson Title",
+      "type": "string"
+     },
+     "level_from": {
+      "title": "Level From",
+      "type": "string"
+     },
+     "level_to": {
+      "title": "Level To",
+      "type": "string"
+     },
+     "materials": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Materials",
+      "type": "array"
+     },
+     "slug": {
+      "title": "Slug",
+      "type": "string"
+     },
+     "status": {
+      "enum": [
+       "not_started",
+       "attempted"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "subject_code": {
+      "title": "Subject Code",
+      "type": "string"
+     },
+     "summary": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Summary"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     },
+     "version": {
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "slug",
+     "title",
+     "summary",
+     "subject_code",
+     "level_from",
+     "level_to",
+     "duration_min",
+     "materials",
+     "interest_tags",
+     "version",
+     "book_code",
+     "lesson_position",
+     "lesson_title",
+     "status"
+    ],
+    "title": "NextUpOut",
+    "type": "object"
+   },
    "ObservationIn": {
     "properties": {
      "note": {
@@ -2398,6 +2864,115 @@
     "title": "OverviewOut",
     "type": "object"
    },
+   "PathActivityOut": {
+    "properties": {
+     "best_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Best Score"
+     },
+     "duration_min": {
+      "title": "Duration Min",
+      "type": "integer"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "locked": {
+      "title": "Locked",
+      "type": "boolean"
+     },
+     "slug": {
+      "title": "Slug",
+      "type": "string"
+     },
+     "status": {
+      "enum": [
+       "not_started",
+       "attempted",
+       "passed"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "slug",
+     "title",
+     "duration_min",
+     "status",
+     "best_score",
+     "locked"
+    ],
+    "title": "PathActivityOut",
+    "type": "object"
+   },
+   "PathLessonOut": {
+    "properties": {
+     "activities": {
+      "items": {
+       "$ref": "#/components/schemas/PathActivityOut"
+      },
+      "title": "Activities",
+      "type": "array"
+     },
+     "activity_count": {
+      "title": "Activity Count",
+      "type": "integer"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Label"
+     },
+     "position": {
+      "title": "Position",
+      "type": "integer"
+     },
+     "state": {
+      "enum": [
+       "locked",
+       "open",
+       "complete"
+      ],
+      "title": "State",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "position",
+     "label",
+     "title",
+     "state",
+     "activity_count",
+     "activities"
+    ],
+    "title": "PathLessonOut",
+    "type": "object"
+   },
    "PinResetIn": {
     "properties": {
      "password": {
@@ -2457,6 +3032,45 @@
      "pin"
     ],
     "title": "PinVerifyIn",
+    "type": "object"
+   },
+   "PlacementOut": {
+    "description": "Where an activity sits in a textbook: board, book and lesson.",
+    "properties": {
+     "board_code": {
+      "title": "Board Code",
+      "type": "string"
+     },
+     "book_code": {
+      "title": "Book Code",
+      "type": "string"
+     },
+     "book_title": {
+      "title": "Book Title",
+      "type": "string"
+     },
+     "grade": {
+      "title": "Grade",
+      "type": "string"
+     },
+     "lesson_position": {
+      "title": "Lesson Position",
+      "type": "integer"
+     },
+     "lesson_title": {
+      "title": "Lesson Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "board_code",
+     "book_code",
+     "book_title",
+     "grade",
+     "lesson_position",
+     "lesson_title"
+    ],
+    "title": "PlacementOut",
     "type": "object"
    },
    "PlanItemIn": {
@@ -3474,6 +4088,17 @@
     "title": "TokenOut",
     "type": "object"
    },
+   "UnlockNextIn": {
+    "properties": {
+     "force": {
+      "default": false,
+      "title": "Force",
+      "type": "boolean"
+     }
+    },
+    "title": "UnlockNextIn",
+    "type": "object"
+   },
    "UserOut": {
     "properties": {
      "email": {
@@ -3720,6 +4345,44 @@
         }
        ],
        "title": "Interest"
+      }
+     },
+     {
+      "description": "Only activities linked to a lesson of this board",
+      "in": "query",
+      "name": "board",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 20,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only activities linked to a lesson of this board",
+       "title": "Board"
+      }
+     },
+     {
+      "description": "Only activities linked to a lesson of this textbook",
+      "in": "query",
+      "name": "book",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 60,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only activities linked to a lesson of this textbook",
+       "title": "Book"
       }
      },
      {
@@ -4210,6 +4873,119 @@
     "summary": "Put Definition",
     "tags": [
      "admin"
+    ]
+   }
+  },
+  "/v1/admin/activities/{activity_id}/lessons": {
+   "get": {
+    "operationId": "get_links_v1_admin_activities__activity_id__lessons_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/PlacementOut"
+         },
+         "title": "Response Get Links V1 Admin Activities  Activity Id  Lessons Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Get Links",
+    "tags": [
+     "textbooks"
+    ]
+   },
+   "put": {
+    "description": "Replaces the lessons an activity belongs to (an activity may belong to lessons of several books and boards).",
+    "operationId": "set_links_v1_admin_activities__activity_id__lessons_put",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ActivityLessonsIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/PlacementOut"
+         },
+         "title": "Response Set Links V1 Admin Activities  Activity Id  Lessons Put",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Set Links",
+    "tags": [
+     "textbooks"
     ]
    }
   },
@@ -5896,6 +6672,290 @@
     ]
    }
   },
+  "/v1/children/{child_id}/books": {
+   "get": {
+    "operationId": "child_books_v1_children__child_id__books_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ChildBookOut"
+         },
+         "title": "Response Child Books V1 Children  Child Id  Books Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Child Books",
+    "tags": [
+     "textbooks"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/books/{book_code}": {
+   "delete": {
+    "operationId": "unenrol_v1_children__child_id__books__book_code__delete",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "book_code",
+      "required": true,
+      "schema": {
+       "title": "Book Code",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Unenrol",
+    "tags": [
+     "textbooks"
+    ]
+   },
+   "put": {
+    "description": "Starts a child on a textbook (idempotent): the first lesson with activities is unlocked.",
+    "operationId": "enrol_v1_children__child_id__books__book_code__put",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "book_code",
+      "required": true,
+      "schema": {
+       "title": "Book Code",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BookPathOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Enrol",
+    "tags": [
+     "textbooks"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/books/{book_code}/path": {
+   "get": {
+    "description": "The textbook in order with each lesson's state. A child never receives the activities of a locked lesson.",
+    "operationId": "book_path_v1_children__child_id__books__book_code__path_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "book_code",
+      "required": true,
+      "schema": {
+       "title": "Book Code",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BookPathOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Book Path",
+    "tags": [
+     "textbooks"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/books/{book_code}/unlock-next": {
+   "post": {
+    "description": "Unlocks the next lesson (one at a time). Needs every unlocked lesson finished unless `force` is true.",
+    "operationId": "unlock_next_v1_children__child_id__books__book_code__unlock_next_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "book_code",
+      "required": true,
+      "schema": {
+       "title": "Book Code",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UnlockNextIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BookPathOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Unlock Next",
+    "tags": [
+     "textbooks"
+    ]
+   }
+  },
   "/v1/children/{child_id}/dashboard": {
    "get": {
     "operationId": "dashboard_v1_children__child_id__dashboard_get",
@@ -6107,6 +7167,40 @@
      },
      {
       "in": "query",
+      "name": "board",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 20,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Board"
+      }
+     },
+     {
+      "in": "query",
+      "name": "book",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 60,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Book"
+      }
+     },
+     {
+      "in": "query",
       "name": "q",
       "required": false,
       "schema": {
@@ -6248,6 +7342,71 @@
     "summary": "Mastery",
     "tags": [
      "progress"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/next-up": {
+   "get": {
+    "description": "What the child can do now across their textbooks: unlocked, not yet passed, in textbook order.",
+    "operationId": "child_next_up_v1_children__child_id__next_up_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 10,
+       "maximum": 50,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/NextUpOut"
+         },
+         "title": "Response Child Next Up V1 Children  Child Id  Next Up Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Child Next Up",
+    "tags": [
+     "textbooks"
     ]
    }
   },
@@ -6844,6 +8003,174 @@
     "summary": "Client Config",
     "tags": [
      "health"
+    ]
+   }
+  },
+  "/v1/curriculum/boards": {
+   "get": {
+    "operationId": "boards_v1_curriculum_boards_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/BoardOut"
+         },
+         "title": "Response Boards V1 Curriculum Boards Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Boards",
+    "tags": [
+     "textbooks"
+    ]
+   }
+  },
+  "/v1/curriculum/books": {
+   "get": {
+    "operationId": "books_v1_curriculum_books_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "board",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Board"
+      }
+     },
+     {
+      "in": "query",
+      "name": "grade",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 8,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Grade"
+      }
+     },
+     {
+      "in": "query",
+      "name": "subject",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/BookOut"
+         },
+         "title": "Response Books V1 Curriculum Books Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Books",
+    "tags": [
+     "textbooks"
+    ]
+   }
+  },
+  "/v1/curriculum/books/{book_code}": {
+   "get": {
+    "operationId": "book_detail_v1_curriculum_books__book_code__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "book_code",
+      "required": true,
+      "schema": {
+       "title": "Book Code",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BookDetail"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Book Detail",
+    "tags": [
+     "textbooks"
     ]
    }
   },

@@ -109,6 +109,28 @@ parent_assist?}` (parent token only; can be repeated). `GET /children/{id}/histo
   (overview + today + 3 recommendations), `GET /children/{id}/recommendations?limit&max_minutes`.
 * Curriculum: `GET /curriculum/levels|subjects|interests|skills`.
 
+## Textbook progress (boards, books, lessons)
+
+Activities can be placed in the lessons of textbooks; a textbook belongs to a board (CBSE, ICSE, ...). An activity can sit
+in several books, so `ActivityDetail.placements` is a list. Boards are data, never hard-coded in a client.
+
+- Catalogue: `GET /v1/curriculum/boards`, `GET /v1/curriculum/books?board&grade&subject`, `GET /v1/curriculum/books/{code}`.
+  `/v1/activities` and the child library also accept `board` and `book` filters.
+- Enrolment (parent): `PUT /v1/children/{id}/books/{code}` (idempotent, returns the path), `DELETE` to leave a book,
+  `GET /v1/children/{id}/books` to list enrolments. A newly enrolled child starts with the first lesson that has activities
+  unlocked.
+- Path: `GET /v1/children/{id}/books/{code}/path` lists lessons in textbook order with their activities and states
+  (`not_started`, `attempted`, `passed`). **Soft lock:** a child token never receives the activities of locked lessons; a
+  parent token sees everything (locked lessons are marked) and can still plan or open any activity.
+- Finished means submitted with a score of at least the pass score (default 0.6, server setting `lesson_pass_score`);
+  activities without a score pass once submitted. Finishing below the pass score is `attempted`.
+- Unlock (parent): `POST /v1/children/{id}/books/{code}/unlock-next` with `{"force": false}` opens the next lesson, skipping
+  lessons that have no activities. If an unlocked lesson is still open it answers 409 `lesson_incomplete`; the parent can
+  repeat with `{"force": true}`. With no more lessons it answers 409 `conflict`.
+- Child home: `GET /v1/children/{id}/next-up?limit=` returns the next unfinished activities in textbook order across the
+  child's books.
+- Admin: `GET`/`PUT /v1/admin/activities/{id}/lessons` read and replace an activity's lesson links (422 on an unknown lesson).
+
 ## Admin (platform staff only)
 
 `GET /admin/stats`, `GET /admin/activities[?status&subject&q]`, `GET|PUT /admin/activities/{id}[/definition]`,
