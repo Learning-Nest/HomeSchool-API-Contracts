@@ -129,7 +129,9 @@ in several books, so `ActivityDetail.placements` is a list. Boards are data, nev
   repeat with `{"force": true}`. With no more lessons it answers 409 `conflict`.
 - Child home: `GET /v1/children/{id}/next-up?limit=` returns the next unfinished activities in textbook order across the
   child's books.
-- Admin: `GET`/`PUT /v1/admin/activities/{id}/lessons` read and replace an activity's lesson links (422 on an unknown lesson).
+- Staff: `GET`/`PUT /v1/admin/activities/{id}/lessons` read and replace an activity's lesson links (`order` is the place inside
+  the lesson; 422 on an unknown lesson). Admins reach any activity; an educator only their own drafts (404 otherwise, 409
+  `activity_locked` once submitted).
 
 ## Admin (platform staff only)
 

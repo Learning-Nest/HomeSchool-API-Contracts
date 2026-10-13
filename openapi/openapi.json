@@ -3060,6 +3060,11 @@
      "lesson_title": {
       "title": "Lesson Title",
       "type": "string"
+     },
+     "order": {
+      "default": 0,
+      "title": "Order",
+      "type": "integer"
      }
     },
     "required": [
@@ -4928,7 +4933,7 @@
     ]
    },
    "put": {
-    "description": "Replaces the lessons an activity belongs to (an activity may belong to lessons of several books and boards).",
+    "description": "Replaces the lessons an activity belongs to (an activity may belong to lessons of several books and boards).\n\nAdmins may change any activity; an educator only their own, and only while it is a draft.",
     "operationId": "set_links_v1_admin_activities__activity_id__lessons_put",
     "parameters": [
      {
