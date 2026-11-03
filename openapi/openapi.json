@@ -317,6 +317,53 @@
    },
    "AdminActivityDetail": {
     "properties": {
+     "assigned_to": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assigned To"
+     },
+     "assigned_to_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assigned To Name"
+     },
+     "assignment_due": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignment Due"
+     },
+     "assignment_id": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignment Id"
+     },
      "created_at": {
       "anyOf": [
        {
@@ -569,6 +616,53 @@
    },
    "AdminActivitySummary": {
     "properties": {
+     "assigned_to": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assigned To"
+     },
+     "assigned_to_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assigned To Name"
+     },
+     "assignment_due": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignment Due"
+     },
+     "assignment_id": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assignment Id"
+     },
      "created_at": {
       "anyOf": [
        {
@@ -941,6 +1035,255 @@
      "created_at"
     ],
     "title": "AssetOut",
+    "type": "object"
+   },
+   "AssignmentCreateIn": {
+    "properties": {
+     "due_date": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Due Date"
+     },
+     "educator_id": {
+      "format": "uuid",
+      "title": "Educator Id",
+      "type": "string"
+     },
+     "requirements": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Requirements",
+      "type": "string"
+     }
+    },
+    "required": [
+     "educator_id",
+     "requirements"
+    ],
+    "title": "AssignmentCreateIn",
+    "type": "object"
+   },
+   "AssignmentCreateOut": {
+    "properties": {
+     "assignment": {
+      "$ref": "#/components/schemas/AssignmentOut"
+     },
+     "email_sent": {
+      "title": "Email Sent",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "assignment",
+     "email_sent"
+    ],
+    "title": "AssignmentCreateOut",
+    "type": "object"
+   },
+   "AssignmentOut": {
+    "properties": {
+     "activity_id": {
+      "format": "uuid",
+      "title": "Activity Id",
+      "type": "string"
+     },
+     "activity_slug": {
+      "title": "Activity Slug",
+      "type": "string"
+     },
+     "activity_status": {
+      "title": "Activity Status",
+      "type": "string"
+     },
+     "activity_title": {
+      "title": "Activity Title",
+      "type": "string"
+     },
+     "assigned_by": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assigned By"
+     },
+     "assigned_by_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assigned By Name"
+     },
+     "cancelled_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Cancelled At"
+     },
+     "completed_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Completed At"
+     },
+     "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+     },
+     "due_date": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Due Date"
+     },
+     "educator_id": {
+      "format": "uuid",
+      "title": "Educator Id",
+      "type": "string"
+     },
+     "educator_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Educator Name"
+     },
+     "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+     },
+     "overdue": {
+      "default": false,
+      "title": "Overdue",
+      "type": "boolean"
+     },
+     "requirements": {
+      "title": "Requirements",
+      "type": "string"
+     },
+     "review_note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Review Note"
+     },
+     "status": {
+      "enum": [
+       "open",
+       "submitted",
+       "completed",
+       "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "submitted_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Submitted At"
+     },
+     "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "activity_id",
+     "activity_slug",
+     "activity_title",
+     "activity_status",
+     "educator_id",
+     "requirements",
+     "status",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "AssignmentOut",
+    "type": "object"
+   },
+   "AssignmentPatchIn": {
+    "description": "Only the fields that are sent change; send due_date null to remove the date.",
+    "properties": {
+     "due_date": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Due Date"
+     },
+     "requirements": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Requirements"
+     }
+    },
+    "title": "AssignmentPatchIn",
     "type": "object"
    },
    "AutosaveIn": {
@@ -4811,6 +5154,65 @@
     ]
    }
   },
+  "/v1/admin/activities/{activity_id}/assignments": {
+   "post": {
+    "description": "Assigns a draft to an educator. If it is already assigned to someone else, that assignment is cancelled\n(and kept as history) and replaced; assigning it again to the same person is a 409: edit the assignment instead.",
+    "operationId": "assign_activity_v1_admin_activities__activity_id__assignments_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssignmentCreateIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AssignmentCreateOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Assign Activity",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
   "/v1/admin/activities/{activity_id}/definition": {
    "put": {
     "operationId": "put_definition_v1_admin_activities__activity_id__definition_put",
@@ -5415,6 +5817,303 @@
     "summary": "Delete Asset",
     "tags": [
      "assets"
+    ]
+   }
+  },
+  "/v1/admin/assignments": {
+   "get": {
+    "description": "Admins: everyone's assignments (filter by educator, status, overdue). Educators: only their own.",
+    "operationId": "list_assignments_v1_admin_assignments_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "status",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "open",
+          "submitted",
+          "completed",
+          "cancelled"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Status"
+      }
+     },
+     {
+      "description": "true = only open and submitted",
+      "in": "query",
+      "name": "live",
+      "required": false,
+      "schema": {
+       "default": false,
+       "description": "true = only open and submitted",
+       "title": "Live",
+       "type": "boolean"
+      }
+     },
+     {
+      "in": "query",
+      "name": "educator_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Educator Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "overdue",
+      "required": false,
+      "schema": {
+       "default": false,
+       "title": "Overdue",
+       "type": "boolean"
+      }
+     },
+     {
+      "in": "query",
+      "name": "activity_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Activity Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 500,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/AssignmentOut"
+         },
+         "title": "Response List Assignments V1 Admin Assignments Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "List Assignments",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/assignments/{assignment_id}": {
+   "get": {
+    "operationId": "get_assignment_v1_admin_assignments__assignment_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "assignment_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Assignment Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AssignmentOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Get Assignment",
+    "tags": [
+     "admin"
+    ]
+   },
+   "patch": {
+    "operationId": "patch_assignment_v1_admin_assignments__assignment_id__patch",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "assignment_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Assignment Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssignmentPatchIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AssignmentOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Patch Assignment",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/v1/admin/assignments/{assignment_id}/cancel": {
+   "post": {
+    "description": "Withdraws the assignment. The activity stays as it is; the educator loses access to it.",
+    "operationId": "cancel_assignment_v1_admin_assignments__assignment_id__cancel_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "assignment_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Assignment Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AssignmentOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Cancel Assignment",
+    "tags": [
+     "admin"
     ]
    }
   },

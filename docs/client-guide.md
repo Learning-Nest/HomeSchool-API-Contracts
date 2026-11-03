@@ -130,11 +130,32 @@ in several books, so `ActivityDetail.placements` is a list. Boards are data, nev
 - Child home: `GET /v1/children/{id}/next-up?limit=` returns the next unfinished activities in textbook order across the
   child's books.
 - Staff: `GET`/`PUT /v1/admin/activities/{id}/lessons` read and replace an activity's lesson links (`order` is the place inside
-  the lesson; 422 on an unknown lesson). Admins reach any activity; an educator only their own drafts (404 otherwise, 409
-  `activity_locked` once submitted).
+  the lesson; 422 on an unknown lesson). Admins reach any activity; an educator their own drafts and the drafts an admin assigned to them (404
+  otherwise, 409 `activity_locked` once submitted).
 
 ## Admin (platform staff only)
 
 `GET /admin/stats`, `GET /admin/activities[?status&subject&q]`, `GET|PUT /admin/activities/{id}[/definition]`,
 `POST /admin/activities/{id}/status {status}` (draft → in_review → published → archived), `POST /admin/content/bundle`
 (`dry_run` defaults to true). Admin accounts cannot read any family or child data.
+
+### Assignments (admin hands a draft to an educator)
+
+An admin (`content_admin`, `super_admin`) assigns an existing **draft** to an educator with written requirements and an
+optional due date; the educator is emailed and works on the draft with the normal activity endpoints.
+
+- `POST /admin/activities/{id}/assignments {educator_id, requirements (1-4000 chars), due_date?}` → 201
+  `{assignment, email_sent}`. 409 if the activity is not a draft, the educator is disabled, or it is already assigned to
+  that educator; 404 if the person is not an educator; 422 for a blank brief or a due date in the past. Assigning a draft
+  that someone else holds cancels the earlier assignment (kept as history) and moves access to the new educator. An
+  email that cannot be sent never blocks the assignment (`email_sent: false`).
+- `GET /admin/assignments[?status&live&educator_id&overdue&activity_id&limit&offset]`: admins see everyone's, educators
+  only their own (`educator_id` is ignored for them). `GET /admin/assignments/{id}` (404 for another educator's).
+- `PATCH /admin/assignments/{id} {requirements?, due_date?}` (send `due_date: null` to remove it) and
+  `POST /admin/assignments/{id}/cancel`: admins only, while the assignment is live (open or submitted); 409 otherwise.
+- Status follows the activity: `open` (with the educator) → `submitted` when they submit it → back to `open` when it is
+  returned (the reviewer's note is on `review_note`) → `completed` when published; `cancelled` when withdrawn,
+  reassigned or archived. `overdue` is true for an open assignment past its due date (calendar days, IST).
+- An educator reaches an assigned draft while the assignment is open, submitted or completed; cancelling or reassigning
+  removes the access. Activity summaries carry `assignment_id`, `assigned_to`, `assigned_to_name`, `assignment_due`.
+- Capabilities: `assignments.view_own` (educator) and `assignments.manage` (admins) on `GET /admin/me`.
