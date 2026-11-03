@@ -6457,6 +6457,55 @@
     ]
    }
   },
+  "/v1/admin/educators/{educator_id}/reset-password": {
+   "post": {
+    "description": "Emails a temporary password (valid RESET_VALID_HOURS) to an educator who has already signed in and lost their\npassword. Their current password keeps working until they use the temporary one, which forces a new password and\nends every session. The password is never returned. Educators who have not signed in yet get a resent invitation.",
+    "operationId": "reset_educator_password_v1_admin_educators__educator_id__reset_password_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "educator_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Educator Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EducatorInviteOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Reset Educator Password",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
   "/v1/admin/feature-flags": {
    "get": {
     "operationId": "planned_GET__v1_admin_feature_flags_v1_admin_feature_flags_get",
