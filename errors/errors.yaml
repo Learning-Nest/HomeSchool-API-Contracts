@@ -26,6 +26,8 @@ codes:
   pin_invalid: The PIN is incorrect.
   pin_locked: The PIN is temporarily locked after too many attempts.
   pin_not_set: No parent PIN has been set.
+  plan_managed: LearnNest chooses this family's daily activities, so they cannot be
+    planned by hand.
   rate_limited: Too many attempts. Try again later.
   storage_unavailable: Image storage is not configured.
   unauthenticated: Missing, invalid or expired token.

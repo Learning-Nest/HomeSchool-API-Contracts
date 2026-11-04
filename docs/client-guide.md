@@ -133,6 +133,61 @@ in several books, so `ActivityDetail.placements` is a list. Boards are data, nev
   the lesson; 422 on an unknown lesson). Admins reach any activity; an educator their own drafts and the drafts an admin assigned to them (404
   otherwise, 409 `activity_locked` once submitted).
 
+## Daily activities chosen by LearnNest (plan mode)
+
+A family is in one of two modes: `plan_mode` on the family is `parent` (the parent plans by hand, as before) or `system`
+(LearnNest releases the activities each day). Read it from `GET /families`. New families start in the mode the
+server is configured for; an operator switches a family with the server command `set-plan-mode`.
+
+- The child carries `board_code` and `grade` (set them on create or `PATCH /children/{id}`; the child follows books only when both are set). In system
+  mode the child follows every active textbook of that board and grade and the books follow the standard automatically.
+- `POST /children/{id}/daily/sync` (child or parent token) is called when the app opens or returns to the front. It
+  releases today's set when the rules allow and always answers `{reason, released[], progress, plan_mode}`. At most one set
+  is released per local day (family time zone); calling again returns the same set (`already_released_today`).
+  Reasons: `released`, `already_released_today`, `below_threshold`, `too_many_open`, `no_content`, `paused`,
+  `not_a_school_day`, `no_books`, `not_system_mode`.
+- A new set is released when at least `release_threshold` (default 70 %) of the last set is done (finished or skipped), the
+  child is not carrying more than `max_open_items`, today is a school day and the child is not paused. Parent grading
+  never blocks the next set. Activities are taken from each textbook in turn, in textbook order (lesson, then the
+  activity's `order` in the lesson), never twice; settings are per board and grade (see the admin section).
+- `GET /children/{id}/daily/status` returns the same `progress`: `{set_released_on, done, total, ratio, threshold, more_needed,
+  open_items}` for "x of y done, z more to unlock tomorrow's activities". `PUT /children/{id}/daily/pause {paused_until}` (parent)
+  pauses releases until that date (null resumes); a past date is 422.
+- `GET /children/{id}/today` returns today's items plus open system or practice items from earlier days (`carry_over: true`).
+  Plan items now carry `source` (`parent`, `system`, `revision`), `released_on`, `book_code`, `lesson_position`, `lesson_title`.
+- In system mode a parent can no longer plan: adding items, moving or deleting released items, enrolling or leaving
+  books and unlocking lessons answer **403 `plan_managed`**. A parent can still skip or un-skip a released item and
+  can take back a practice item. Viewing is always allowed. Practice (below) is the one way a family adds activities.
+
+## Results and practice
+
+Reads for a child (own token) or a parent. The page is built from finished sessions; nothing here changes the daily release.
+
+- Scores: an attempt's score is the parent-reviewed score once the parent has rated checklist steps (`reviewed_score` = the
+  auto scores and the ratings averaged together, ratings trying 0.3, with_help 0.6, independent 1.0), otherwise the auto
+  score. A bucket's score is the mean of each activity's **best** score, so practising again raises it; the mean of the latest
+  scores is next to it. Activities with no scoring count as done but are left out of the mean. A week is Monday to Sunday in
+  the family's time zone. `pass_score` (0.6) and `strong_score` (0.85, from the release settings) come with the response.
+- `GET /children/{id}/results/summary?group_by=subject|week|subject_week|month|lesson|skill&from=&to=&subject=&book=`
+  returns `buckets` with activities, attempts, `avg_best_score`, `avg_latest_score`, minutes, `independent_pct`, hints,
+  `waiting_review`, `needs_attention`, `previous_score` and `trend` (`up|flat|down`). Default range: the last 8 weeks; time
+  groupings start on a whole week or month; at most 400 days; week/month buckets are newest first. Labels for `week` and
+  `month` are the ISO key: the client formats them.
+- `GET /children/{id}/results/activities?week_start=&from=&to=&subject=&book=&lesson=&attention=&limit=&offset=`: one row per
+  activity with `first_score`, `latest_score`, `best_score`, attempts, `status` (`passed|attempted|unscored|waiting_review`)
+  and `needs_attention`. Use `subject` with `week_start` for the subject-week list.
+- `GET /children/{id}/results/activities/{activity_id}`: all attempts, newest first (score, `reviewed_score`, duration, hints,
+  assist, steps waiting for review).
+- `GET /children/{id}/results/attempts/{session_id}`: per-exercise result (prompt, the child's answer, right or wrong, feedback
+  text, skills, rating). `correct_answer` is sent to a **parent token only**; a child token receives `null`.
+- `POST /children/{id}/practice {activity_ids[1-10], scheduled_date?}` (201) puts finished activities, or related ones (same
+  lesson or skill), back into the plan as `revision` items, with `skipped[]` reasons: `not_published`, `not_allowed`,
+  `already_open`, `cooldown` (not before the cooldown after it was last finished), `cap_reached`, `daily_limit` (child token
+  only). A child may add for today only; a parent up to 14 days ahead. Practice items show in Today with a "Practice" tag and
+  never count toward the 70 % test.
+- `GET /children/{id}/practice/suggestions?limit=` lists what is worth practising: below the pass mark, then weak skills, then
+  the same lessons, each with `reason`, `best_score` and `open_in_plan`.
+
 ## Admin (platform staff only)
 
 `GET /admin/stats`, `GET /admin/activities[?status&subject&q]`, `GET|PUT /admin/activities/{id}[/definition]`,
@@ -159,3 +214,14 @@ optional due date; the educator is emailed and works on the draft with the norma
 - An educator reaches an assigned draft while the assignment is open, submitted or completed; cancelling or reassigning
   removes the access. Activity summaries carry `assignment_id`, `assigned_to`, `assigned_to_name`, `assignment_due`.
 - Capabilities: `assignments.view_own` (educator) and `assignments.manage` (admins) on `GET /admin/me`.
+
+### Release settings, coverage and preview (admin)
+
+- `GET /admin/release-policies` (any admin) lists the settings rows: the default (`scope_board` and `scope_grade` empty), a
+  board, or a board and grade. The most specific row applies to a child. `PUT /admin/release-policies?board=&grade=` (super admin)
+  creates or replaces a row: `release_threshold` (0-1), `set_minutes`, `set_max_activities`, `max_open_items`, `school_days`
+  (ISO weekdays 1-7), `strong_score`, `revision_open_cap`, `revision_cooldown_days`, `child_daily_practice_limit`. A grade needs a
+  board (422); `DELETE` removes an override (the default cannot be removed).
+- `GET /admin/coverage?board=&grade=&target_per_lesson=` shows, per active book, lessons with published activities, lessons
+  below the target, minutes, `days_of_content` at the current pace and the weakest lessons.
+- `POST /admin/release-preview {board_code, grade, days}` lists what a new child would get over the next days if every set is finished.

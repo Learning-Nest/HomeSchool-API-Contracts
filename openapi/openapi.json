@@ -1,6 +1,62 @@
 {
  "components": {
   "schemas": {
+   "ActivityAttemptsOut": {
+    "properties": {
+     "activity": {
+      "$ref": "#/components/schemas/ActivitySummary"
+     },
+     "attempts": {
+      "items": {
+       "$ref": "#/components/schemas/AttemptOut"
+      },
+      "title": "Attempts",
+      "type": "array"
+     },
+     "best_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Best Score"
+     },
+     "first_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "First Score"
+     },
+     "latest_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Latest Score"
+     }
+    },
+    "required": [
+     "activity",
+     "first_score",
+     "latest_score",
+     "best_score",
+     "attempts"
+    ],
+    "title": "ActivityAttemptsOut",
+    "type": "object"
+   },
    "ActivityDetail": {
     "properties": {
      "definition": {
@@ -1286,6 +1342,151 @@
     "title": "AssignmentPatchIn",
     "type": "object"
    },
+   "AttemptDetailOut": {
+    "properties": {
+     "activity": {
+      "$ref": "#/components/schemas/ActivitySummary"
+     },
+     "duration_sec": {
+      "title": "Duration Sec",
+      "type": "integer"
+     },
+     "exercises": {
+      "items": {
+       "$ref": "#/components/schemas/ExerciseResultOut"
+      },
+      "title": "Exercises",
+      "type": "array"
+     },
+     "hints_used": {
+      "title": "Hints Used",
+      "type": "integer"
+     },
+     "parent_assist": {
+      "title": "Parent Assist",
+      "type": "boolean"
+     },
+     "reviewed_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed Score"
+     },
+     "score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Score"
+     },
+     "session_id": {
+      "format": "uuid",
+      "title": "Session Id",
+      "type": "string"
+     },
+     "submitted_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Submitted At"
+     }
+    },
+    "required": [
+     "session_id",
+     "activity",
+     "submitted_at",
+     "score",
+     "reviewed_score",
+     "duration_sec",
+     "hints_used",
+     "parent_assist",
+     "exercises"
+    ],
+    "title": "AttemptDetailOut",
+    "type": "object"
+   },
+   "AttemptOut": {
+    "properties": {
+     "duration_sec": {
+      "title": "Duration Sec",
+      "type": "integer"
+     },
+     "hints_used": {
+      "title": "Hints Used",
+      "type": "integer"
+     },
+     "needs_review": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Needs Review",
+      "type": "array"
+     },
+     "parent_assist": {
+      "title": "Parent Assist",
+      "type": "boolean"
+     },
+     "reviewed_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed Score"
+     },
+     "score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Score"
+     },
+     "session_id": {
+      "format": "uuid",
+      "title": "Session Id",
+      "type": "string"
+     },
+     "submitted_at": {
+      "format": "date-time",
+      "title": "Submitted At",
+      "type": "string"
+     }
+    },
+    "required": [
+     "session_id",
+     "submitted_at",
+     "score",
+     "reviewed_score",
+     "duration_sec",
+     "hints_used",
+     "parent_assist",
+     "needs_review"
+    ],
+    "title": "AttemptOut",
+    "type": "object"
+   },
    "AutosaveIn": {
     "properties": {
      "answers": {
@@ -1809,6 +2010,18 @@
       ],
       "title": "Birth Year"
      },
+     "board_code": {
+      "anyOf": [
+       {
+        "maxLength": 20,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Board Code"
+     },
      "display_name": {
       "maxLength": 40,
       "minLength": 1,
@@ -1822,6 +2035,19 @@
       "maxItems": 10,
       "title": "Goals",
       "type": "array"
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "maxLength": 20,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
      },
      "interests": {
       "items": {
@@ -1867,6 +2093,17 @@
       ],
       "title": "Birth Year"
      },
+     "board_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Board Code"
+     },
      "display_name": {
       "title": "Display Name",
       "type": "string"
@@ -1882,6 +2119,17 @@
       },
       "title": "Goals",
       "type": "array"
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
      },
      "id": {
       "format": "uuid",
@@ -1905,6 +2153,18 @@
        }
       ],
       "title": "Level Code"
+     },
+     "paused_until": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Paused Until"
      },
      "version": {
       "title": "Version",
@@ -1952,6 +2212,18 @@
       ],
       "title": "Birth Year"
      },
+     "board_code": {
+      "anyOf": [
+       {
+        "maxLength": 20,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Board Code"
+     },
      "display_name": {
       "anyOf": [
        {
@@ -1979,6 +2251,19 @@
        }
       ],
       "title": "Goals"
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "maxLength": 20,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
      },
      "interests": {
       "anyOf": [
@@ -2128,6 +2413,282 @@
      "consents"
     ],
     "title": "ConsentPurposeList",
+    "type": "object"
+   },
+   "CoverageBookOut": {
+    "properties": {
+     "board_code": {
+      "title": "Board Code",
+      "type": "string"
+     },
+     "code": {
+      "title": "Code",
+      "type": "string"
+     },
+     "days_of_content": {
+      "title": "Days Of Content",
+      "type": "integer"
+     },
+     "grade": {
+      "title": "Grade",
+      "type": "string"
+     },
+     "lessons": {
+      "title": "Lessons",
+      "type": "integer"
+     },
+     "lessons_below_target": {
+      "title": "Lessons Below Target",
+      "type": "integer"
+     },
+     "lessons_with_activities": {
+      "title": "Lessons With Activities",
+      "type": "integer"
+     },
+     "minutes": {
+      "title": "Minutes",
+      "type": "integer"
+     },
+     "published_activities": {
+      "title": "Published Activities",
+      "type": "integer"
+     },
+     "subject_code": {
+      "title": "Subject Code",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     },
+     "weak_lessons": {
+      "items": {
+       "$ref": "#/components/schemas/CoverageLessonOut"
+      },
+      "title": "Weak Lessons",
+      "type": "array"
+     }
+    },
+    "required": [
+     "code",
+     "board_code",
+     "grade",
+     "subject_code",
+     "title",
+     "lessons",
+     "lessons_with_activities",
+     "lessons_below_target",
+     "published_activities",
+     "minutes",
+     "days_of_content",
+     "weak_lessons"
+    ],
+    "title": "CoverageBookOut",
+    "type": "object"
+   },
+   "CoverageLessonOut": {
+    "properties": {
+     "minutes": {
+      "title": "Minutes",
+      "type": "integer"
+     },
+     "position": {
+      "title": "Position",
+      "type": "integer"
+     },
+     "published_activities": {
+      "title": "Published Activities",
+      "type": "integer"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "position",
+     "title",
+     "published_activities",
+     "minutes"
+    ],
+    "title": "CoverageLessonOut",
+    "type": "object"
+   },
+   "CoverageOut": {
+    "properties": {
+     "books": {
+      "items": {
+       "$ref": "#/components/schemas/CoverageBookOut"
+      },
+      "title": "Books",
+      "type": "array"
+     },
+     "target_per_lesson": {
+      "title": "Target Per Lesson",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "target_per_lesson",
+     "books"
+    ],
+    "title": "CoverageOut",
+    "type": "object"
+   },
+   "DailyProgressOut": {
+    "description": "How far the child is through the most recently released set, and what the next release needs.",
+    "properties": {
+     "done": {
+      "title": "Done",
+      "type": "integer"
+     },
+     "more_needed": {
+      "title": "More Needed",
+      "type": "integer"
+     },
+     "open_items": {
+      "title": "Open Items",
+      "type": "integer"
+     },
+     "ratio": {
+      "title": "Ratio",
+      "type": "number"
+     },
+     "set_released_on": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Set Released On"
+     },
+     "threshold": {
+      "title": "Threshold",
+      "type": "number"
+     },
+     "total": {
+      "title": "Total",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "set_released_on",
+     "done",
+     "total",
+     "ratio",
+     "threshold",
+     "more_needed",
+     "open_items"
+    ],
+    "title": "DailyProgressOut",
+    "type": "object"
+   },
+   "DailyStatusOut": {
+    "properties": {
+     "child_id": {
+      "format": "uuid",
+      "title": "Child Id",
+      "type": "string"
+     },
+     "paused_until": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Paused Until"
+     },
+     "plan_mode": {
+      "enum": [
+       "parent",
+       "system"
+      ],
+      "title": "Plan Mode",
+      "type": "string"
+     },
+     "progress": {
+      "$ref": "#/components/schemas/DailyProgressOut"
+     }
+    },
+    "required": [
+     "child_id",
+     "plan_mode",
+     "paused_until",
+     "progress"
+    ],
+    "title": "DailyStatusOut",
+    "type": "object"
+   },
+   "DailySyncOut": {
+    "properties": {
+     "child_id": {
+      "format": "uuid",
+      "title": "Child Id",
+      "type": "string"
+     },
+     "paused_until": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Paused Until"
+     },
+     "plan_mode": {
+      "enum": [
+       "parent",
+       "system"
+      ],
+      "title": "Plan Mode",
+      "type": "string"
+     },
+     "progress": {
+      "$ref": "#/components/schemas/DailyProgressOut"
+     },
+     "reason": {
+      "enum": [
+       "released",
+       "already_released_today",
+       "below_threshold",
+       "too_many_open",
+       "no_content",
+       "paused",
+       "not_a_school_day",
+       "no_books",
+       "not_system_mode"
+      ],
+      "title": "Reason",
+      "type": "string"
+     },
+     "released": {
+      "items": {
+       "$ref": "#/components/schemas/PlanItemOut"
+      },
+      "title": "Released",
+      "type": "array"
+     }
+    },
+    "required": [
+     "child_id",
+     "plan_mode",
+     "paused_until",
+     "progress",
+     "released",
+     "reason"
+    ],
+    "title": "DailySyncOut",
     "type": "object"
    },
    "DashboardOut": {
@@ -2365,6 +2926,122 @@
     "title": "ElevationOut",
     "type": "object"
    },
+   "ExerciseResultOut": {
+    "properties": {
+     "answer": {
+      "anyOf": [
+       {},
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Answer"
+     },
+     "correct": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Correct"
+     },
+     "correct_answer": {
+      "anyOf": [
+       {},
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Correct Answer"
+     },
+     "feedback": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Feedback"
+     },
+     "id": {
+      "title": "Id",
+      "type": "string"
+     },
+     "needs_review": {
+      "title": "Needs Review",
+      "type": "boolean"
+     },
+     "prompt": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prompt"
+     },
+     "rating": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Rating"
+     },
+     "score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Score"
+     },
+     "scored": {
+      "title": "Scored",
+      "type": "boolean"
+     },
+     "skills": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Skills",
+      "type": "array"
+     },
+     "type": {
+      "title": "Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "type",
+     "prompt",
+     "scored",
+     "score",
+     "correct",
+     "answer",
+     "correct_answer",
+     "feedback",
+     "skills",
+     "needs_review",
+     "rating"
+    ],
+    "title": "ExerciseResultOut",
+    "type": "object"
+   },
    "FamilyOut": {
     "properties": {
      "id": {
@@ -2374,6 +3051,15 @@
      },
      "name": {
       "title": "Name",
+      "type": "string"
+     },
+     "plan_mode": {
+      "default": "parent",
+      "enum": [
+       "parent",
+       "system"
+      ],
+      "title": "Plan Mode",
       "type": "string"
      },
      "timezone": {
@@ -3316,6 +4002,24 @@
     "title": "PathLessonOut",
     "type": "object"
    },
+   "PauseIn": {
+    "properties": {
+     "paused_until": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Paused Until"
+     }
+    },
+    "title": "PauseIn",
+    "type": "object"
+   },
    "PinResetIn": {
     "properties": {
      "password": {
@@ -3453,6 +4157,22 @@
      "activity": {
       "$ref": "#/components/schemas/ActivitySummary"
      },
+     "book_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Book Code"
+     },
+     "carry_over": {
+      "default": false,
+      "title": "Carry Over",
+      "type": "boolean"
+     },
      "child_id": {
       "format": "uuid",
       "title": "Child Id",
@@ -3463,13 +4183,57 @@
       "title": "Id",
       "type": "string"
      },
+     "lesson_position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Lesson Position"
+     },
+     "lesson_title": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Lesson Title"
+     },
      "position": {
       "title": "Position",
       "type": "integer"
      },
+     "released_on": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Released On"
+     },
      "scheduled_date": {
       "format": "date",
       "title": "Scheduled Date",
+      "type": "string"
+     },
+     "source": {
+      "default": "parent",
+      "enum": [
+       "parent",
+       "system",
+       "revision"
+      ],
+      "title": "Source",
       "type": "string"
      },
      "status": {
@@ -3574,6 +4338,127 @@
     "title": "PlanOut",
     "type": "object"
    },
+   "PracticeIn": {
+    "properties": {
+     "activity_ids": {
+      "items": {
+       "format": "uuid",
+       "type": "string"
+      },
+      "maxItems": 10,
+      "minItems": 1,
+      "title": "Activity Ids",
+      "type": "array"
+     },
+     "scheduled_date": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Scheduled Date"
+     }
+    },
+    "required": [
+     "activity_ids"
+    ],
+    "title": "PracticeIn",
+    "type": "object"
+   },
+   "PracticeOut": {
+    "properties": {
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/PlanItemOut"
+      },
+      "title": "Items",
+      "type": "array"
+     },
+     "skipped": {
+      "items": {
+       "$ref": "#/components/schemas/PracticeSkipped"
+      },
+      "title": "Skipped",
+      "type": "array"
+     }
+    },
+    "required": [
+     "items",
+     "skipped"
+    ],
+    "title": "PracticeOut",
+    "type": "object"
+   },
+   "PracticeSkipped": {
+    "properties": {
+     "activity_id": {
+      "format": "uuid",
+      "title": "Activity Id",
+      "type": "string"
+     },
+     "reason": {
+      "enum": [
+       "not_published",
+       "cooldown",
+       "already_open",
+       "cap_reached",
+       "not_allowed",
+       "daily_limit"
+      ],
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "activity_id",
+     "reason"
+    ],
+    "title": "PracticeSkipped",
+    "type": "object"
+   },
+   "PracticeSuggestionOut": {
+    "properties": {
+     "activity": {
+      "$ref": "#/components/schemas/ActivitySummary"
+     },
+     "best_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Best Score"
+     },
+     "open_in_plan": {
+      "title": "Open In Plan",
+      "type": "boolean"
+     },
+     "reason": {
+      "enum": [
+       "below_pass_mark",
+       "weak_skill",
+       "same_lesson"
+      ],
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "activity",
+     "reason",
+     "best_score",
+     "open_in_plan"
+    ],
+    "title": "PracticeSuggestionOut",
+    "type": "object"
+   },
    "ProblemOut": {
     "properties": {
      "message": {
@@ -3631,6 +4516,651 @@
      "refresh_token"
     ],
     "title": "RefreshIn",
+    "type": "object"
+   },
+   "ReleasePolicyIn": {
+    "properties": {
+     "child_daily_practice_limit": {
+      "default": 3,
+      "maximum": 20.0,
+      "minimum": 0.0,
+      "title": "Child Daily Practice Limit",
+      "type": "integer"
+     },
+     "max_open_items": {
+      "default": 10,
+      "maximum": 100.0,
+      "minimum": 1.0,
+      "title": "Max Open Items",
+      "type": "integer"
+     },
+     "release_threshold": {
+      "default": 0.7,
+      "exclusiveMinimum": 0.0,
+      "maximum": 1.0,
+      "title": "Release Threshold",
+      "type": "number"
+     },
+     "revision_cooldown_days": {
+      "default": 1,
+      "maximum": 60.0,
+      "minimum": 0.0,
+      "title": "Revision Cooldown Days",
+      "type": "integer"
+     },
+     "revision_open_cap": {
+      "default": 5,
+      "maximum": 50.0,
+      "minimum": 0.0,
+      "title": "Revision Open Cap",
+      "type": "integer"
+     },
+     "school_days": {
+      "items": {
+       "type": "integer"
+      },
+      "maxItems": 7,
+      "minItems": 1,
+      "title": "School Days",
+      "type": "array"
+     },
+     "set_max_activities": {
+      "default": 5,
+      "maximum": 30.0,
+      "minimum": 1.0,
+      "title": "Set Max Activities",
+      "type": "integer"
+     },
+     "set_minutes": {
+      "default": 45,
+      "maximum": 600.0,
+      "minimum": 5.0,
+      "title": "Set Minutes",
+      "type": "integer"
+     },
+     "strong_score": {
+      "default": 0.85,
+      "exclusiveMinimum": 0.0,
+      "maximum": 1.0,
+      "title": "Strong Score",
+      "type": "number"
+     }
+    },
+    "title": "ReleasePolicyIn",
+    "type": "object"
+   },
+   "ReleasePolicyOut": {
+    "properties": {
+     "child_daily_practice_limit": {
+      "default": 3,
+      "maximum": 20.0,
+      "minimum": 0.0,
+      "title": "Child Daily Practice Limit",
+      "type": "integer"
+     },
+     "max_open_items": {
+      "default": 10,
+      "maximum": 100.0,
+      "minimum": 1.0,
+      "title": "Max Open Items",
+      "type": "integer"
+     },
+     "release_threshold": {
+      "default": 0.7,
+      "exclusiveMinimum": 0.0,
+      "maximum": 1.0,
+      "title": "Release Threshold",
+      "type": "number"
+     },
+     "revision_cooldown_days": {
+      "default": 1,
+      "maximum": 60.0,
+      "minimum": 0.0,
+      "title": "Revision Cooldown Days",
+      "type": "integer"
+     },
+     "revision_open_cap": {
+      "default": 5,
+      "maximum": 50.0,
+      "minimum": 0.0,
+      "title": "Revision Open Cap",
+      "type": "integer"
+     },
+     "school_days": {
+      "items": {
+       "type": "integer"
+      },
+      "maxItems": 7,
+      "minItems": 1,
+      "title": "School Days",
+      "type": "array"
+     },
+     "scope_board": {
+      "default": "",
+      "title": "Scope Board",
+      "type": "string"
+     },
+     "scope_grade": {
+      "default": "",
+      "title": "Scope Grade",
+      "type": "string"
+     },
+     "set_max_activities": {
+      "default": 5,
+      "maximum": 30.0,
+      "minimum": 1.0,
+      "title": "Set Max Activities",
+      "type": "integer"
+     },
+     "set_minutes": {
+      "default": 45,
+      "maximum": 600.0,
+      "minimum": 5.0,
+      "title": "Set Minutes",
+      "type": "integer"
+     },
+     "strong_score": {
+      "default": 0.85,
+      "exclusiveMinimum": 0.0,
+      "maximum": 1.0,
+      "title": "Strong Score",
+      "type": "number"
+     },
+     "updated_at": {
+      "anyOf": [
+       {
+        "format": "date-time",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Updated At"
+     }
+    },
+    "title": "ReleasePolicyOut",
+    "type": "object"
+   },
+   "ReleasePreviewActivity": {
+    "properties": {
+     "book_code": {
+      "title": "Book Code",
+      "type": "string"
+     },
+     "duration_min": {
+      "title": "Duration Min",
+      "type": "integer"
+     },
+     "lesson_position": {
+      "title": "Lesson Position",
+      "type": "integer"
+     },
+     "order": {
+      "title": "Order",
+      "type": "integer"
+     },
+     "slug": {
+      "title": "Slug",
+      "type": "string"
+     },
+     "title": {
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "slug",
+     "title",
+     "book_code",
+     "lesson_position",
+     "order",
+     "duration_min"
+    ],
+    "title": "ReleasePreviewActivity",
+    "type": "object"
+   },
+   "ReleasePreviewDay": {
+    "properties": {
+     "activities": {
+      "items": {
+       "$ref": "#/components/schemas/ReleasePreviewActivity"
+      },
+      "title": "Activities",
+      "type": "array"
+     },
+     "day": {
+      "title": "Day",
+      "type": "integer"
+     },
+     "minutes": {
+      "title": "Minutes",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "day",
+     "activities",
+     "minutes"
+    ],
+    "title": "ReleasePreviewDay",
+    "type": "object"
+   },
+   "ReleasePreviewIn": {
+    "properties": {
+     "board_code": {
+      "maxLength": 20,
+      "title": "Board Code",
+      "type": "string"
+     },
+     "days": {
+      "default": 5,
+      "maximum": 30.0,
+      "minimum": 1.0,
+      "title": "Days",
+      "type": "integer"
+     },
+     "grade": {
+      "maxLength": 20,
+      "minLength": 1,
+      "title": "Grade",
+      "type": "string"
+     }
+    },
+    "required": [
+     "board_code",
+     "grade"
+    ],
+    "title": "ReleasePreviewIn",
+    "type": "object"
+   },
+   "ReleasePreviewOut": {
+    "properties": {
+     "board_code": {
+      "title": "Board Code",
+      "type": "string"
+     },
+     "books": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Books",
+      "type": "array"
+     },
+     "days": {
+      "items": {
+       "$ref": "#/components/schemas/ReleasePreviewDay"
+      },
+      "title": "Days",
+      "type": "array"
+     },
+     "grade": {
+      "title": "Grade",
+      "type": "string"
+     },
+     "remaining_activities": {
+      "title": "Remaining Activities",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "board_code",
+     "grade",
+     "books",
+     "days",
+     "remaining_activities"
+    ],
+    "title": "ReleasePreviewOut",
+    "type": "object"
+   },
+   "ResultActivityOut": {
+    "properties": {
+     "activity": {
+      "$ref": "#/components/schemas/ActivitySummary"
+     },
+     "attempts": {
+      "title": "Attempts",
+      "type": "integer"
+     },
+     "best_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Best Score"
+     },
+     "book_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Book Code"
+     },
+     "first_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "First Score"
+     },
+     "last_done_at": {
+      "format": "date-time",
+      "title": "Last Done At",
+      "type": "string"
+     },
+     "last_session_id": {
+      "format": "uuid",
+      "title": "Last Session Id",
+      "type": "string"
+     },
+     "latest_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Latest Score"
+     },
+     "lesson_position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Lesson Position"
+     },
+     "needs_attention": {
+      "title": "Needs Attention",
+      "type": "boolean"
+     },
+     "status": {
+      "enum": [
+       "passed",
+       "attempted",
+       "unscored",
+       "waiting_review"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "waiting_review": {
+      "title": "Waiting Review",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "activity",
+     "attempts",
+     "first_score",
+     "latest_score",
+     "best_score",
+     "last_done_at",
+     "status",
+     "needs_attention",
+     "waiting_review",
+     "last_session_id"
+    ],
+    "title": "ResultActivityOut",
+    "type": "object"
+   },
+   "ResultBucket": {
+    "properties": {
+     "activities": {
+      "title": "Activities",
+      "type": "integer"
+     },
+     "attempts": {
+      "title": "Attempts",
+      "type": "integer"
+     },
+     "avg_best_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Avg Best Score"
+     },
+     "avg_latest_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Avg Latest Score"
+     },
+     "book_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Book Code"
+     },
+     "hints_used": {
+      "title": "Hints Used",
+      "type": "integer"
+     },
+     "independent_pct": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Independent Pct"
+     },
+     "key": {
+      "title": "Key",
+      "type": "string"
+     },
+     "label": {
+      "title": "Label",
+      "type": "string"
+     },
+     "lesson_position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Lesson Position"
+     },
+     "minutes": {
+      "title": "Minutes",
+      "type": "integer"
+     },
+     "month": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Month"
+     },
+     "needs_attention": {
+      "title": "Needs Attention",
+      "type": "integer"
+     },
+     "previous_score": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Previous Score"
+     },
+     "scored_activities": {
+      "title": "Scored Activities",
+      "type": "integer"
+     },
+     "skill_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Skill Code"
+     },
+     "subject_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Subject Code"
+     },
+     "trend": {
+      "anyOf": [
+       {
+        "enum": [
+         "up",
+         "flat",
+         "down"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Trend"
+     },
+     "waiting_review": {
+      "title": "Waiting Review",
+      "type": "integer"
+     },
+     "week_start": {
+      "anyOf": [
+       {
+        "format": "date",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Week Start"
+     }
+    },
+    "required": [
+     "key",
+     "label",
+     "activities",
+     "attempts",
+     "scored_activities",
+     "avg_best_score",
+     "avg_latest_score",
+     "minutes",
+     "independent_pct",
+     "hints_used",
+     "waiting_review",
+     "needs_attention",
+     "previous_score",
+     "trend"
+    ],
+    "title": "ResultBucket",
+    "type": "object"
+   },
+   "ResultSummaryOut": {
+    "properties": {
+     "buckets": {
+      "items": {
+       "$ref": "#/components/schemas/ResultBucket"
+      },
+      "title": "Buckets",
+      "type": "array"
+     },
+     "child_id": {
+      "format": "uuid",
+      "title": "Child Id",
+      "type": "string"
+     },
+     "group_by": {
+      "enum": [
+       "subject",
+       "week",
+       "subject_week",
+       "month",
+       "lesson",
+       "skill"
+      ],
+      "title": "Group By",
+      "type": "string"
+     },
+     "pass_score": {
+      "title": "Pass Score",
+      "type": "number"
+     },
+     "range_end": {
+      "format": "date",
+      "title": "Range End",
+      "type": "string"
+     },
+     "range_start": {
+      "format": "date",
+      "title": "Range Start",
+      "type": "string"
+     },
+     "strong_score": {
+      "title": "Strong Score",
+      "type": "number"
+     }
+    },
+    "required": [
+     "child_id",
+     "group_by",
+     "range_start",
+     "range_end",
+     "pass_score",
+     "strong_score",
+     "buckets"
+    ],
+    "title": "ResultSummaryOut",
     "type": "object"
    },
    "ReviewIn": {
@@ -6182,6 +7712,89 @@
     ]
    }
   },
+  "/v1/admin/coverage": {
+   "get": {
+    "description": "How much published content each book has, lesson by lesson, and how many school days it lasts.",
+    "operationId": "coverage_v1_admin_coverage_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "board",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Board"
+      }
+     },
+     {
+      "in": "query",
+      "name": "grade",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Grade"
+      }
+     },
+     {
+      "in": "query",
+      "name": "target_per_lesson",
+      "required": false,
+      "schema": {
+       "default": 3,
+       "maximum": 20,
+       "minimum": 1,
+       "title": "Target Per Lesson",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/CoverageOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Coverage",
+    "tags": [
+     "release"
+    ]
+   }
+  },
   "/v1/admin/educators": {
    "get": {
     "operationId": "list_educators_v1_admin_educators_get",
@@ -6567,6 +8180,204 @@
     "summary": "Me",
     "tags": [
      "admin"
+    ]
+   }
+  },
+  "/v1/admin/release-policies": {
+   "delete": {
+    "description": "Removes an override so the scope falls back to the next broader settings. The default row stays.",
+    "operationId": "delete_policy_v1_admin_release_policies_delete",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "board",
+      "required": false,
+      "schema": {
+       "default": "",
+       "maxLength": 20,
+       "title": "Board",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "grade",
+      "required": false,
+      "schema": {
+       "default": "",
+       "maxLength": 20,
+       "title": "Grade",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Delete Policy",
+    "tags": [
+     "release"
+    ]
+   },
+   "get": {
+    "operationId": "list_policies_v1_admin_release_policies_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ReleasePolicyOut"
+         },
+         "title": "Response List Policies V1 Admin Release Policies Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "List Policies",
+    "tags": [
+     "release"
+    ]
+   },
+   "put": {
+    "description": "Creates or replaces the settings for a scope: both empty = the default, a board alone = that board, or both.",
+    "operationId": "put_policy_v1_admin_release_policies_put",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "board",
+      "required": false,
+      "schema": {
+       "default": "",
+       "maxLength": 20,
+       "title": "Board",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "grade",
+      "required": false,
+      "schema": {
+       "default": "",
+       "maxLength": 20,
+       "title": "Grade",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReleasePolicyIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReleasePolicyOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Put Policy",
+    "tags": [
+     "release"
+    ]
+   }
+  },
+  "/v1/admin/release-preview": {
+   "post": {
+    "description": "What a brand-new child of this board and grade would get over the next days, assuming every set is finished.",
+    "operationId": "release_preview_v1_admin_release_preview_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReleasePreviewIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReleasePreviewOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Release Preview",
+    "tags": [
+     "release"
     ]
    }
   },
@@ -7709,6 +9520,163 @@
     ]
    }
   },
+  "/v1/children/{child_id}/daily/pause": {
+   "put": {
+    "description": "Parent pauses the daily release up to and including a date (holiday, illness); null resumes it.",
+    "operationId": "pause_v1_children__child_id__daily_pause_put",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PauseIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/DailyStatusOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Pause",
+    "tags": [
+     "daily"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/daily/status": {
+   "get": {
+    "description": "Progress through the latest set and what the next release needs (read only; never releases anything).",
+    "operationId": "status_v1_children__child_id__daily_status_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/DailyStatusOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Status",
+    "tags": [
+     "daily"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/daily/sync": {
+   "post": {
+    "description": "Releases today's set of activities when the rules allow it (see app/services/daily.py). Idempotent: asking again\non the same day returns the same set. Child or parent token. Families in parent mode get reason `not_system_mode`.",
+    "operationId": "sync_v1_children__child_id__daily_sync_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/DailySyncOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Sync",
+    "tags": [
+     "daily"
+    ]
+   }
+  },
   "/v1/children/{child_id}/dashboard": {
    "get": {
     "operationId": "dashboard_v1_children__child_id__dashboard_get",
@@ -8345,6 +10313,128 @@
     ]
    }
   },
+  "/v1/children/{child_id}/practice": {
+   "post": {
+    "operationId": "practice_v1_children__child_id__practice_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PracticeIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PracticeOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Practice",
+    "tags": [
+     "results"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/practice/suggestions": {
+   "get": {
+    "operationId": "practice_suggestions_v1_children__child_id__practice_suggestions_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 10,
+       "maximum": 30,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/PracticeSuggestionOut"
+         },
+         "title": "Response Practice Suggestions V1 Children  Child Id  Practice Suggestions Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Practice Suggestions",
+    "tags": [
+     "results"
+    ]
+   }
+  },
   "/v1/children/{child_id}/progress/overview": {
    "get": {
     "description": "Defaults to the current week (Monday to Sunday, family timezone).",
@@ -8581,6 +10671,439 @@
     "summary": "Planned: not implemented yet",
     "tags": [
      "planned (not implemented)"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/results/activities": {
+   "get": {
+    "operationId": "results_activities_v1_children__child_id__results_activities_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "From"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "To"
+      }
+     },
+     {
+      "in": "query",
+      "name": "week_start",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Week Start"
+      }
+     },
+     {
+      "in": "query",
+      "name": "subject",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject"
+      }
+     },
+     {
+      "in": "query",
+      "name": "book",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Book"
+      }
+     },
+     {
+      "in": "query",
+      "name": "lesson",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Lesson"
+      }
+     },
+     {
+      "in": "query",
+      "name": "attention",
+      "required": false,
+      "schema": {
+       "default": false,
+       "title": "Attention",
+       "type": "boolean"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 50,
+       "maximum": 200,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ResultActivityOut"
+         },
+         "title": "Response Results Activities V1 Children  Child Id  Results Activities Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Results Activities",
+    "tags": [
+     "results"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/results/activities/{activity_id}": {
+   "get": {
+    "operationId": "results_activity_attempts_v1_children__child_id__results_activities__activity_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "activity_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Activity Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ActivityAttemptsOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Results Activity Attempts",
+    "tags": [
+     "results"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/results/attempts/{session_id}": {
+   "get": {
+    "description": "Per-exercise result of one finished session. The correct answers are sent to a parent token only.",
+    "operationId": "results_attempt_v1_children__child_id__results_attempts__session_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "session_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Session Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AttemptDetailOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Results Attempt",
+    "tags": [
+     "results"
+    ]
+   }
+  },
+  "/v1/children/{child_id}/results/summary": {
+   "get": {
+    "operationId": "results_summary_v1_children__child_id__results_summary_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "child_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Child Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "group_by",
+      "required": false,
+      "schema": {
+       "default": "subject",
+       "enum": [
+        "subject",
+        "week",
+        "subject_week",
+        "month",
+        "lesson",
+        "skill"
+       ],
+       "title": "Group By",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "From"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "date",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "To"
+      }
+     },
+     {
+      "in": "query",
+      "name": "subject",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject"
+      }
+     },
+     {
+      "in": "query",
+      "name": "book",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Book"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ResultSummaryOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "summary": "Results Summary",
+    "tags": [
+     "results"
     ]
    }
   },
